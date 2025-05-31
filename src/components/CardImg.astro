@@ -1,0 +1,55 @@
+---
+const { src, alt, title, rating } = Astro.props;
+---
+
+<div class="catalog__container__card shadow-card">
+	<img class="catalog__container__card--img" src={src} alt={alt} />
+	<div class="catalog__container__card--body">
+		<div>
+			<h4>{title}</h4>
+			<span><b>{rating}</b></span>
+		</div>
+	</div>
+</div>
+<style>
+	h4 {
+		margin: 0;
+		color: #fff;
+		font-size: 1.2rem;
+	}
+	.catalog__container__card {
+		object-fit: cover; /* Similar a background-size: cover */
+		display: block;
+		overflow: hidden;
+		border-radius: 10px;
+		position: relative;
+		&:hover {
+			cursor: pointer;
+			transform: scale(1.05);
+		}
+	}
+	.catalog__container__card--img {
+		width: 100%;
+		display: block; /* Centra la imagen y evita espacios extraños */
+		object-fit: cover; /* Similar a background-size: cover */
+	}
+	.catalog__container__card--body {
+		height: 35%;
+		z-index: 1;
+		position: absolute;
+		text-align: left;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		background-color: rgba(0, 0, 0, 0.5);
+		color: #fff;
+		padding: 0.5rem 1rem;
+		& div {
+			display: flex;
+			justify-content: space-between;
+		}
+	}
+	.shadow-card {
+		box-shadow: 5px 4px 10px #000000e0;
+	}
+</style>
