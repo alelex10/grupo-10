@@ -2,18 +2,22 @@
 import MainLayout from '../layouts/MainLayout.astro';
 ---
 
-<MainLayout title="Game">
+<MainLayout title="Game Details">
+    <div id="loader" class="loader isLoading">
+        Cargando información del juego...
+    </div>
+
     <div class="banner">
-        <img src="https://media.rawg.io/media/screenshots/ac2/ac2d75c1b2ed0db7f12528a77a15fcea.jpg" alt="Elden Ring Banner">
+        <img id="banner" src="#" alt="Banner">
     </div>
     <main class="game">
         <section class="game__hero">
             <div class="game__cover">
-                <img src="https://media.rawg.io/media/games/b29/b294fdd866dcdb643e7bab370a552855.jpg" alt="Elden Ring Cover">
+                <img id="game-cover" src="https://media.rawg.io/media/games/b29/b294fdd866dcdb643e7bab370a552855.jpg" alt="Elden Ring Cover">
             </div>
             <div class="game__details">
-                <h1 class="game__title">Elden Ring</h1>
-                <p class="game__price">$36.43</p>
+                <h1 class="game__title" id="game-title">Elden Ring</h1>
+                <p class="game__price" id="game-price">$36.43</p>
                 <div class="game__actions">
                     <button class="game__button game__button--wishlist">
                         <img loading="lazy" src="/wishlist-icon.svg" alt="Wishlist Icon">
@@ -25,22 +29,18 @@ import MainLayout from '../layouts/MainLayout.astro';
         <section class="visuals">
             <h2 class="visuals__title">Visuales</h2>
             <div class="visuals__gallery">
-                <picture class="visuals__item">
-                    <source srcset="https://media.rawg.io/media/screenshots/36f/36f941f72e2b2a41629f5fb3bd448688.jpg" type="image/jpeg">
-                    <img src="https://media.rawg.io/media/screenshots/36f/36f941f72e2b2a41629f5fb3bd448688.jpg" alt="Elden Ring Cover">
+                <picture class="visuals__item visuals__item--first">
+                    <img id="visuals-cover" src="#" alt="Game Cover First">
                 </picture>
                 <div class="visuals__row">
                     <picture class="visuals__item ">
-                        <source srcset="https://media.rawg.io/media/screenshots/290/29096848622521df7555850000236cb6.jpg" type="image/jpeg">
-                        <img src="https://media.rawg.io/media/screenshots/290/29096848622521df7555850000236cb6.jpg" alt="Elden Ring Cover">
+                        <img src="#" alt="Game Cover">
                     </picture>
                     <picture class="visuals__item">
-                        <source srcset="https://media.rawg.io/media/screenshots/807/807685454ea8fb87363eedd49677f49b.jpg" type="image/jpeg">
-                        <img src="https://media.rawg.io/media/screenshots/807/807685454ea8fb87363eedd49677f49b.jpg" alt="Elden Ring Cover">
+                        <img src="#" alt="Game Cover">
                     </picture>
                     <picture class="visuals__item">
-                        <source srcset="https://media.rawg.io/media/screenshots/2ee/2eea4d4cce2836f689d9d39d2a4a94d5.jpg" type="image/jpeg">
-                        <img src="https://media.rawg.io/media/screenshots/2ee/2eea4d4cce2836f689d9d39d2a4a94d5.jpg" alt="Elden Ring Cover">
+                        <img src="#" alt="Game Cover">
                     </picture>
                 </div>
             </div>
@@ -48,41 +48,33 @@ import MainLayout from '../layouts/MainLayout.astro';
         <section class="about">
             <h2 class="about__title">Acerca de</h2>
             <div class="about__content">
-                <div class="about__description">
-                    <p>The Golden Order has been broken.</p>
-                    <p>Rise, Tarnished, and be guided by grace to brandish the power of the Elden Ring and become an Elden Lord in the Lands Between.</p>
-                    <br>
-                    <p>In the Lands Between ruled by Queen Marika the Eternal, the Elden Ring, the source of the Erdtree, has been shattered.</p>
-                    <p>Marika&#39;s offspring, demigods all, claimed the shards of the Elden Ring known as the Great Runes, and the mad taint of their newfound strength triggered a war: The Shattering. A war that meant abandonment by the Greater Will.</p>
-                    <br>
-                    <p>And now the guidance of grace will be brought to the Tarnished who were spurned by the grace of gold and exiled from the Lands Between. Ye dead who yet live, your grace long lost, follow the path to the Lands Between beyond the foggy sea to stand before the Elden Ring.</p>
-                </div>
+                <div class="about__description" id="about-description"></div>
                 <div class="about__info">
                     <table class="about__table">
                         <tbody>
                             <tr>
                                 <th>Desarrollador:</th>
-                                <th class="about__table-value">FromSoftware</th>
+                                <th class="about__table-value" id="about-developers"></th>
                             </tr>
                             <tr>
                                 <th>Distribuidor:</th>
-                                <th class="about__table-value">Bandai Namco Entertainment, FromSoftware</th>
+                                <th class="about__table-value" id="about-publishers"></th>
                             </tr>
                             <tr>
                                 <th>Lanzamiento:</th>
-                                <th class="about__table-value">2022-02-25</th>
+                                <th class="about__table-value" id="about-release"></th>
                             </tr>
                             <tr>
                                 <th>Generos:</th>
-                                <th class="about__table-value">Action, RPG</th>
+                                <th class="about__table-value" id="about-genres"></th>
                             </tr>
                             <tr>
                                 <th>Plataformas:</th>
-                                <th class="about__table-value">PC, PlayStation, Xbox</th> 
+                                <th class="about__table-value" id="about-platforms"></th>
                             </tr>
                             <tr>
                                 <th>Website:</th>
-                                <th class="about__table-value"><a href="https://en.bandainamcoent.eu/elden-ring/elden-ring">Elden Ring</a></th>
+                                <th class="about__table-value" id="about-website"></th>
                             </tr>
                         </tbody>
                     </table>
@@ -91,50 +83,139 @@ import MainLayout from '../layouts/MainLayout.astro';
         </section>
         <section class="expansions">
             <h2 class="expansions__title">Extensiones</h2>
-            <div class="expansions__list">
+            <div class="expansions__list" id="expansions-list">
                 <div class="expansions__item">
                     <picture class="expansions__image">
-                        <source srcset="https://media.rawg.io/media/screenshots/0ba/0bae7160eedc1f7d85a8d2db70cf1ec9.jpg" type="image/jpeg">
-                        <img src="https://media.rawg.io/media/screenshots/0ba/0bae7160eedc1f7d85a8d2db70cf1ec9.jpg" alt="Elden Ring Cover">
+                        <img src="#" alt="Expansion Cover">
                     </picture>
-                    <p class="expansions__name">Elden Ring: Shadow of the Erdtree</p>
+                    <p class="expansions__name"></p>
                 </div>
                 <div class="expansions__item">
                     <picture class="expansions__image">
-                        <source srcset="https://media.rawg.io/media/screenshots/0ba/0bae7160eedc1f7d85a8d2db70cf1ec9.jpg" type="image/jpeg">
-                        <img src="https://media.rawg.io/media/screenshots/0ba/0bae7160eedc1f7d85a8d2db70cf1ec9.jpg" alt="Elden Ring Cover">
+                        <img src="#" alt="Expansion Cover">
                     </picture>
-                    <p class="expansions__name">Elden Ring: Shadow of the Erdtree</p>
+                    <p class="expansions__name"></p>
                 </div>
             </div>
         </section>
         <section class="requirements">
             <h2 class="requirements__title">Requisitos para PC</h2>
-            <div class="requirements__content">
+            <div class="requirements__content" id="requirements-pc">
                 <div class="requirements__block">
                     <h3 class="requirements__subtitle">Mínimos</h3>
-                    <ul class="requirements__list">
-                        <li class="requirements__item">Sistema Operativo: <span>Windows 7 o superior</span></li> 
-                        <li class="requirements__item">Procesador: <span>Intel Core i3 o superior</span></li>
-                        <li class="requirements__item">Memoria: <span>4 GB de RAM</span></li>
-                        <li class="requirements__item">Tarjeta gráfica: <span>NVIDIA GeForce GTX 660 o superior</span></li>
-                        <li class="requirements__item">Almacenamiento: <span>500 GB de espacio libre</span></li>
-                    </ul>
+                    <div class="requirements__list" id="requirements-pc-minimum"></div>
                 </div>
                 <div class="requirements__block">
                     <h3 class="requirements__subtitle">Recomendados</h3>
-                    <ul class="requirements__list">
-                        <li class="requirements__item">Sistema Operativo: <span>Windows 10 o superior</span></li>
-                        <li class="requirements__item">Procesador: <span>Intel Core i5 o superior</span></li>
-                        <li class="requirements__item">Memoria: <span>8 GB de RAM</span></li>
-                        <li class="requirements__item">Tarjeta gráfica: <span>NVIDIA GeForce GTX 1060 o superior</span></li>
-                        <li class="requirements__item">Almacenamiento: <span>1 TB de espacio libre</span></li>
-                    </ul>
+                    <div class="requirements__list" id="requirements-pc-recommended"></div>
                 </div>
             </div>
         </section>
     </main>
     <!-- Comentarios -->
+    <script type="module">
+        const params = new URLSearchParams(window.location.search);
+        const title = params.get('title');
+        const apiKey = 'a707fb0dd76f4b69a37f1cb57a7ab2f4';
+        
+        document.querySelector('.banner').style.display = 'none';
+        document.querySelector('main').style.display = 'none';
+        const loader = document.getElementById('loader');
+        loader.style.display = 'block';
+
+        try {
+            /* ==== GAME DETAILS ==== */
+            const gameRes = await fetch(`https://api.rawg.io/api/games/${title}?key=${apiKey}`);
+            const game = await gameRes.json();
+            //console.log(game);
+
+            document.querySelector('#banner').src = game.background_image_additional;
+            document.querySelector('#game-cover').src = game.background_image;
+            document.querySelector('#game-title').textContent = game.name;
+            document.title = `${game.name} - Steam`;
+            document.querySelector('#game-price').innerHTML = `$${(Math.random() * 100).toFixed(2)}`;
+
+            /* ==== VISUALS ==== */
+            const visualsRes = await fetch(`https://api.rawg.io/api/games/${game.id}/screenshots?key=${apiKey}`);
+            const screenshots = (await visualsRes.json()).results;
+
+            if (screenshots.length > 0) {
+                document.querySelector('#visuals-cover').src = screenshots[0].image;
+                const rowItems = document.querySelectorAll('.visuals__row .visuals__item');
+
+                rowItems.forEach((item, i) => {
+                    const screenshot = screenshots[i + 1];
+                    if (screenshot) {
+                        const img = item.querySelector('img');
+                        if (img) img.src = screenshot.image;
+                    }
+                });
+            } else {
+                document.querySelector('.visuals__row')?.remove();
+            }
+
+            /* ==== ABOUT ==== */
+            const setListFromArray = (selector, array, getVal) => {
+                const el = document.querySelector(selector);
+                if (!el || !array?.length) return;
+                el.innerHTML = array.map(getVal).join(', ');
+            };
+
+            document.querySelector('#about-description').innerHTML = game.description_raw || '-';
+            setListFromArray('#about-developers', game.developers, d => d.name);
+            setListFromArray('#about-publishers', game.publishers, p => p.name);
+            setListFromArray('#about-genres', game.genres, g => g.name);
+            setListFromArray('#about-platforms', game.platforms, p => p.platform.name);
+
+            document.querySelector('#about-release').textContent = game.released || '-';
+            document.querySelector('#about-website').innerHTML = `<a href="${game.website}" target="_blank" data-astro-cid-gpfhifiw>${game.name}</a>`;
+
+            /* ==== EXPANSIONS ==== */
+            const expansionsRes = await fetch(`https://api.rawg.io/api/games/${game.id}/additions?key=${apiKey}`);
+            const expansions = (await expansionsRes.json()).results;
+            const expansionsList = document.querySelector('#expansions-list');
+
+            if (expansions.length > 0) {
+                expansionsList.innerHTML = '';
+                expansions.forEach(expansion => {
+                    const item = document.createElement('div');
+                    item.setAttribute('data-astro-cid-gpfhifiw', '');
+                    item.classList.add('expansions__item');
+                    item.innerHTML = `
+                    <picture class="expansions__image" data-astro-cid-gpfhifiw>
+                        <img src="${expansion.background_image}" alt="${expansion.name}" data-astro-cid-gpfhifiw>
+                    </picture>
+                    <p class="expansions__name" data-astro-cid-gpfhifiw>${expansion.name}</p>
+                    `;
+                    expansionsList.appendChild(item);
+                });
+            } else {
+                expansionsList.innerHTML = `<p class="about__description" data-astro-cid-gpfhifiw>No se han encontrado extensiones</p>`;
+            }
+
+            /* ==== REQUIREMENTS ==== */
+            const pcPlatform = game.platforms.find(p => p.platform.name === 'PC');
+
+            if (pcPlatform?.requirements && Object.keys(pcPlatform.requirements).length > 0) {
+                const req = pcPlatform.requirements;
+                document.querySelector('#requirements-pc-minimum').innerHTML = (req.minimum || '').replace('Minimum:', '').replace(/\n/g, '<br>');
+                document.querySelector('#requirements-pc-recommended').innerHTML = (req.recommended || '').replace('Recommended:', '').replace(/\n/g, '<br>');
+            } else {
+                document.querySelector('#requirements-pc').innerHTML = `<p class="about__description" data-astro-cid-gpfhifiw>No se han encontrado requisitos</p>`;
+            }
+
+            // Ocultar el loader
+            document.getElementById('loader').style.display = 'none';
+            document.querySelector('.banner').style.display = '';
+            document.querySelector('main').style.display = '';
+
+        } catch (err) {
+            console.error('Error al cargar los datos del juego:', err);
+            loader.innerHTML = '<p>Error al cargar la información del juego. Intenta más tarde.</p>';
+            loader.classList.remove('isLoading');
+        }
+        </script>
+
 </MainLayout>
 
 
@@ -147,6 +228,30 @@ import MainLayout from '../layouts/MainLayout.astro';
         --primary-background-color: oklch(27.27% 0.000 0);
         --secondary-background-color: oklch(22.93% 0.002 145.50);
         --button-color: linear-gradient(180deg, oklch(63.49% 0.251 28.81), oklch(78.48% 0.166 66.11));
+    }
+
+    /* ==== LOADING ==== */
+    .loader {
+        text-align: center;
+        font-size: 1.2rem;
+        padding: 2rem;
+        color: var(--accent-color);
+    }
+
+    .isLoading::after {
+        content: '';
+        display: block;
+        margin: 1rem auto 0;
+        width: 30px;
+        height: 30px;
+        border: 4px solid var(--accent-color);
+        border-top: 4px solid transparent;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+        to { transform: rotate(360deg); }
     }
 
     /* ==== BANNER ==== */
@@ -168,6 +273,7 @@ import MainLayout from '../layouts/MainLayout.astro';
 
     .game__title {
         font-size: 2rem;
+        text-align: center;
     }
 
     .game__price {
@@ -236,6 +342,10 @@ import MainLayout from '../layouts/MainLayout.astro';
     .visuals__row {
         display: flex;
         gap: 1rem;
+    }
+
+    .visuals__item {
+        flex-basis: 100%;
     }
 
     .visuals__item img {
@@ -337,11 +447,11 @@ import MainLayout from '../layouts/MainLayout.astro';
     }
 
     .requirements__list {
-        list-style: disc inside;
+        /*list-style: disc inside;*/
         padding-left: 1rem;
     }
 
-    .requirements__item {
+    /*.requirements__item {
         margin-bottom: 0.5rem;
         font-weight: bold;
 
@@ -349,7 +459,7 @@ import MainLayout from '../layouts/MainLayout.astro';
             color: var(--secondary-color);
             font-weight: normal;
         }
-    }
+    }*/
 
 
     @media (min-width: 768px) {
@@ -481,28 +591,52 @@ import MainLayout from '../layouts/MainLayout.astro';
             border-radius: 15px;
         }
 
+        .game__button--wishlist img {
+            width: 35px;
+            height: 35px;
+        }
+
         /* ==== VISUALS ==== */
         .visuals__gallery {
             flex-direction: row;
             justify-content: center;
         }
 
+        .visuals__item--first img {
+            height: 100%;
+        }
+
         /* ==== ABOUT ==== */
         .about__content {
             display: flex;
             flex-direction: row;
-            align-items: center;
+            /*align-items: center;*/
             gap: 2rem;
+        }
+
+        .about__description, .about__info {
+            max-width: 500px;
         }
 
         /* ==== REQUIREMENTS ==== */
+
         .requirements__content {
             display: flex;
             flex-direction: row;
-            align-items: center;
+            /*align-items: center;*/
             gap: 2rem;
         }
+        
+        .requirements__block {
+            flex: 1 1 45%;
+        }
 
+    }
+
+    @media (min-width: 1200px) {
+        .about__description, .about__info {
+            max-width: 800px;
+        }
     }
 
 </style>
