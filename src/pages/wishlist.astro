@@ -1,0 +1,158 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+---
+
+<MainLayout title="Wishlist">
+    <section class="wishlist">
+        <h1 class="wishlist__title">Wishlist</h1>
+        <p class="wishlist__description">Aquí se encuentra todos los juegos que has agregado a tu wishlist.</p>
+        <div class="wishlist__list">
+            <div class="wishlist__item">
+                <picture class="item__image">
+                    <img src="https://media.rawg.io/media/screenshots/36f/36f941f72e2b2a41629f5fb3bd448688.jpg" alt="Juego 1">
+                </picture>
+                <div class="item__details">
+                    <h2 class="item__title">Juego 1</h2>
+                    <button class="item__button">
+                        <img src="/bin.svg" alt="Icono de Borrar">
+                    </button>
+                </div>
+            </div>
+            <div class="wishlist__item">
+                <picture class="item__image">
+                    <img src="https://media.rawg.io/media/screenshots/36f/36f941f72e2b2a41629f5fb3bd448688.jpg" alt="Juego 2">
+                </picture>
+                <div class="item__details">
+                    <h2 class="item__title">Juego 2</h2>
+                    <button class="item__button">
+                        <img src="/bin.svg" alt="Icono de Borrar">
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+</MainLayout>
+
+<style>
+    :root {
+        --primary-color: oklch(96.82% 0.002 325.59);
+        --secondary-color: oklch(70.14% 0.002 145.56);
+        --accent-color: oklch(70.09% 0.201 44.77);
+        --primary-background-color: oklch(27.27% 0.000 0);
+        --secondary-background-color: oklch(22.93% 0.002 145.50);
+        --button-color: linear-gradient(180deg, oklch(63.49% 0.251 28.81), oklch(78.48% 0.166 66.11));
+    }
+
+    .wishlist {
+        padding: 1.5rem 1rem;
+    }
+
+    .wishlist__title {
+        font-size: 1.75rem;
+        margin-bottom: 0.5rem;
+        color: var(--primary-color);
+    }
+
+    .wishlist__description {
+        font-size: 1rem;
+        color: var(--secondary-color);
+        margin-bottom: 1.5rem;
+    }
+
+    .wishlist__list {
+        display: flex;
+        flex-direction: column;
+        gap: 1.25rem;
+    }
+
+    .wishlist__item {
+        display: flex;
+        flex-direction: column;
+        background-color: var(--secondary-background-color);
+        border-radius: 8px;
+        padding: 1rem;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        transition: box-shadow 0.3s ease;
+    }
+
+    .wishlist__item:hover {
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .item__image img {
+        width: 100%;
+        height: auto;
+        max-height: 180px;
+        object-fit: cover;
+        border-radius: 6px;
+        margin-bottom: 0.75rem;
+    }
+
+    .item__details {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .item__title {
+        font-size: 1.25rem;
+        color: var(--primary-color);
+        margin: 0;
+        flex: 1;
+    }
+
+    .item__button {
+        background: var(--button-color);
+        border: none;
+        cursor: pointer;
+        padding: 0.5rem;
+        border-radius: 4px;
+        transition: background-color 0.2s ease;
+    }
+
+    .item__button img {
+        width: 25px;
+        height: 25px;
+    }
+
+
+    @media (min-width: 768px) {
+        .wishlist__item {
+            flex-direction: row;
+            align-items: center;
+        }
+
+        .item__image img {
+            width: 120px;
+            height: 70px;
+            margin-bottom: 0;
+        }
+
+        .item__details {
+            margin-left: 1rem;
+            width: 100%;
+        }
+    }
+
+
+    @media (min-width: 1024px) {
+        .wishlist {
+            max-width: 960px;
+            margin: 0 auto;
+        }
+
+        .wishlist__title {
+            font-size: 2rem;
+        }
+
+        .wishlist__description {
+            font-size: 1.125rem;
+        }
+
+        .item__title {
+            font-size: 1.5rem;
+        }
+    }
+
+</style>
