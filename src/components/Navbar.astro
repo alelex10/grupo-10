@@ -1,0 +1,52 @@
+---
+---
+
+<header class="site-header">
+    <nav class="site-header__navbar navbar">
+        <a class="navbar__logo" href="/">Steam</a> 
+        <ul class="navbar__nav-links"> 
+            <!-- <li class="navbar__item"><a class="navbar__link" href="/juegos">Juegos</a></li>
+            <li class="navbar__item"><a class="navbar__link" href="/ofertas">Ofertas</a></li> -->
+            <slot />
+            <li class="navbar__item"><a class="navbar__link" href="/contact">Contacto</a></li>
+            <li class="navbar__item"><a class="navbar__link" href="/wishlist">Wishlist</a></li>
+        </ul>
+    </nav>
+</header>
+
+<style>
+    /* ==== HEADER ==== */
+    .site-header {
+        background-color: oklch(17.91% 0.005 145.36);
+        padding: 1rem;
+    }
+
+    .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .navbar__logo {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #fff;
+        text-decoration: none;
+    }
+
+    .navbar__nav-links {
+        list-style: none;
+        display: flex;
+        gap: 1rem;
+    }
+
+    .navbar__link {
+        color: #ccc;
+        text-decoration: none;
+    }
+
+    .navbar__link:hover {
+        color: #fff;
+    }
+
+</style>
