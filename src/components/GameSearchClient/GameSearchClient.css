@@ -1,6 +1,6 @@
 /* Este es el root combinado entre los dos root de estilos existentes */
 /* Se debra eliminar al momento de integrar */
-:root {
+/*:root {
     --primary-color: oklch(96.82% 0.002 325.59);
     --secondary-color: oklch(70.14% 0.002 145.56);
     --accent-color: oklch(70.09% 0.201 44.77);
@@ -12,7 +12,7 @@
     --font-family-base: 'Segoe UI', sans-serif;
     --font-size-base: 14px;
   
-    /* configuracion images para el searchGames*/
+    
     --container-width: 400px;
     --card-height: 70px;
     --image-width: 100px;
@@ -21,7 +21,7 @@
     --radius-sm: 5px;
   
     --color-border: oklch(40% 0 0);
-}
+}*/
 
 .search-container {
     width: var(--container-width); /* AQUI UNICA MEDIDA 1de3 */
