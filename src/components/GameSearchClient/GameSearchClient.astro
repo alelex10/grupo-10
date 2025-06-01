@@ -1,0 +1,60 @@
+---
+import './GameSearchClient.css';
+---
+
+<div class="search-container">
+  <input type="text" id="searchInput" placeholder="Buscando juegos..." />
+  <ul id="resultsList"></ul>
+</div>
+
+<script type="module">
+    //la api esta publica, a tener en cuenta
+    const API_KEY = "a707fb0dd76f4b69a37f1cb57a7ab2f4";
+
+    const input = document.getElementById('searchInput');
+    const resultsList = document.getElementById('resultsList');
+    let timeout;
+
+    input?.addEventListener('input', () => {
+        clearTimeout(timeout);
+        const query = input.value.trim();
+
+        if (query.length < 2) return resultsList.innerHTML = "";
+
+        timeout = setTimeout(() => fetchGames(query), 300);
+    });
+
+    async function fetchGames(query) {
+        try {
+            const res = await fetch(`https://api.rawg.io/api/games?search=${encodeURIComponent(query)}&page_size=10&key=${API_KEY}`);
+            const { results = [] } = await res.json();
+
+            resultsList.innerHTML = results.length
+                ? results.map(game => renderGame(game, query)).join("")
+                : "<li>No hay juego XD?.</li>";
+            } catch (err) {
+                console.error("Error fetching games:", err);
+                resultsList.innerHTML = "<li>Error al obtener juegos.</li>";
+            }
+    }
+
+    function renderGame(game, query) {
+        return `
+            <li>
+                <div class="game-result">
+                    <figure class="game-image-container">
+                        <img src="${game.background_image}" alt="${game.name}" />
+                    </figure>
+                    <div class="game-info">
+                        <h3>${highlight(game.name, query)}</h3>
+                        <p>Fecha: ${game.released ?? 'Vacio'}</p>
+                        <p>Rating: ${game.rating ?? 'No hay ranking'}</p>
+                    </div>
+                </div>
+            </li>`;
+    }
+    //efeto visual para el marcado, emplo regex el color esta defino en style del componente
+    function highlight(text, query) {
+        return text.replace(new RegExp(`(${query})`, "gi"), "<mark>$1</mark>");
+    }
+</script>
