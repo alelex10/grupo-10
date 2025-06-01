@@ -1,0 +1,128 @@
+/* Este es el root combinado entre los dos root de estilos existentes */
+/* Se debra eliminar al momento de integrar */
+:root {
+    --primary-color: oklch(96.82% 0.002 325.59);
+    --secondary-color: oklch(70.14% 0.002 145.56);
+    --accent-color: oklch(70.09% 0.201 44.77);
+  
+    --primary-background-color: oklch(27.27% 0.000 0);
+    --secondary-background-color: oklch(22.93% 0.002 145.50);
+    --button-color: linear-gradient(180deg, oklch(63.49% 0.251 28.81), oklch(78.48% 0.166 66.11));
+  
+    --font-family-base: 'Segoe UI', sans-serif;
+    --font-size-base: 14px;
+  
+    /* configuracion images para el searchGames*/
+    --container-width: 400px;
+    --card-height: 70px;
+    --image-width: 100px;
+
+    --radius-md: 10px;
+    --radius-sm: 5px;
+  
+    --color-border: oklch(40% 0 0);
+}
+
+.search-container {
+    width: var(--container-width); /* AQUI UNICA MEDIDA 1de3 */
+    margin: auto;
+    padding: 1rem;
+    background-color: var(--primary-background-color);
+    border-radius: var(--radius-md);
+    font-family: var(--font-family-base);
+    font-size: var(--font-size-base);
+}
+  
+input[type="text"] {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 1rem;
+    border-radius: var(--radius-md);
+    border: 1px solid var(color-border);    
+    background-color: var(--secondary-background-color);
+    color: var(--primary-color);
+}
+  
+#resultsList {
+    display: grid;
+    grid-template-rows: none;
+    gap: 1rem;
+    padding: 0;
+    list-style: none;
+}
+  
+.game-result {
+    height: var(--card-height); /* AQUI UNICA MEDIDA 2de3 */
+    display: flex;
+    flex-direction: row;
+    background-color: var(--secondary-background-color);
+    padding: 0.5rem;
+    border-radius: var(--radius-md);
+    gap: 0.5rem;
+    overflow: hidden;
+    box-sizing: border-box;
+    text-align: left;
+    align-items: center;
+}
+  
+.game-image-container {
+    width: var(--image-width); /* AQUI UNICA MEDIDA 3de3 */
+    height: 100%;
+    background-color: oklch(40% 0 0);
+    flex-shrink: 0;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+}
+  
+.game-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+    border-radius: var(--radius-sm);
+}
+  
+.game-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+  
+.game-info h3 {
+    color: var(--primary-color);
+}
+  
+.game-info p {
+    color: var(--secondary-color);
+}
+  
+.game-info mark {
+    background: var(--accent-color);
+    color: black;
+}
+  
+/*-------------------------@MEDIA----------------------------*/
+  
+/* CELULARES*/
+@media (max-width: 480px) {
+    /* ME BASE EN MEDIDAS PARA MOVILES PRIMERO => No aplique cambios*/
+}
+  
+  /* TABLE */
+@media (min-width: 481px) and (max-width: 560px) {
+}
+  
+/* LAPTOP */
+@media (min-width: 561px) and (max-width: 800px) {
+    .search-container {
+      width: 520px;
+    }
+}
+  
+  /* PC */
+@media (min-width: 801px) and (max-width: 3000px) {
+    .search-container {
+      width: 520px;
+    }
+}
+  
