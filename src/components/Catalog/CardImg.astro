@@ -1,10 +1,10 @@
 ---
-import type { Genres } from "../types/rawgTypes";
+import type { Genres } from "@/type/rawgTypes";
 interface Props {
 	src: string;
 	alt: string;
 	title: string;
-	rating: string;
+	rating: number;
 	genres: Genres[];
 }
 const { src, alt, title, rating, genres } = Astro.props;
