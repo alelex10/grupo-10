@@ -1,0 +1,83 @@
+---
+import type { Genres } from "@/type/rawgTypes";
+interface Props {
+	src: string;
+	alt: string;
+	title: string;
+	rating: number;
+	genres: Genres[];
+}
+const { src, alt, title, rating, genres } = Astro.props;
+---
+
+<div class="catalog__container__card">
+	<img class="catalog__container__card--img" src={src} alt={alt} />
+	<div class="catalog__container__card--body">
+		<div>
+			<h4>{title}</h4>
+			<span><b>{rating}</b></span>
+		</div>
+		<div>{genres.map((genre) => <span>{genre.name}</span>)}</div>
+	</div>
+</div>
+<style>
+	h4 {
+		margin: 0;
+		color: #fff;
+		font-size: 1.2rem;
+	}
+	.catalog__container__card {
+		height: calc(100vh / 3);
+		object-fit: cover; /* Similar a background-size: cover */
+		display: block;
+		overflow: hidden;
+		border-radius: 10px;
+		position: relative;
+		box-shadow: 5px 4px 10px #000000e0;
+		transition: all 0.3s ease-in-out;
+		&:hover {
+			cursor: pointer;
+			transform: scale(1.05);
+		}
+		&:hover .catalog__container__card--body {
+			height: 50%;
+			display: block;
+			opacity: 1;
+		}
+	}
+	.catalog__container__card--img {
+		height: 100%;
+		display: block; /* Centra la imagen y evita espacios extraños */
+		object-fit: cover; /* Similar a background-size: cover */
+	}
+	.catalog__container__card--body {
+		height: 0%;
+		/* display: none; */
+		opacity: 0;
+		z-index: 1;
+		position: absolute;
+		text-align: left;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		background-color: rgba(0, 0, 0, 0.7);
+		color: #fff;
+		padding: 0.5rem 1rem;
+		transition: all 0.3s ease-in-out;
+		& div {
+			display: flex;
+			justify-content: space-between;
+		}
+		& p {
+			font-size: 0.9rem;
+			line-height: 0.8rem;
+			margin: 0;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			/* para mostrar 4 lineas y luego un ... */
+			display: -webkit-box;
+			-webkit-box-orient: vertical;
+			-webkit-line-clamp: 4;
+		}
+	}
+</style>

@@ -1,0 +1,55 @@
+---
+import CardImg from "@components/Catalog/CardImg.astro";
+import { getGames } from "../../../api/rawg";
+---
+
+<section class="catalog">
+	<h1 class="catalog__title">catalog</h1>
+	<span class="catalog__container">
+		{
+			async () => {
+				let page = 1;
+				return getGames(`page=${page}`).then((games) => {
+					return games.results.map((game) => {
+						return (
+							<CardImg
+								src={game.background_image}
+								alt={game.name}
+								title={game.name}
+								rating={game.rating}
+								genres={game.genres}
+							/>
+						);
+					});
+				});
+			}
+		}
+	</span>
+	<span class="catalog__container__buttons">
+		<button class="catalog__container__buttons--prev" onclick="prevPage()">Prev</button>
+		<button class="catalog__container__buttons--next">Next</button>
+	</span>
+</section>
+
+<style>
+	.catalog {
+		text-align: center;
+	}
+
+	.catalog__container {
+		width: auto;
+		margin: 0 auto;
+		display: grid;
+		justify-items: center;
+		grid-template-columns: repeat(4, 1fr);
+		grid-template-rows: repeat(4, 1fr);
+		gap: 1rem;
+	}
+
+	.catalog__container__buttons {
+		display: flex;
+		justify-content: center;
+		gap: 1rem;
+		margin: 1rem 0 5rem 0;
+	}
+</style>
