@@ -1,0 +1,535 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+---
+
+<MainLayout title="Game Details">
+    <div id="loader" class="loader isLoading">
+        Cargando información del juego...
+    </div>
+
+    <div class="banner">
+        <img id="banner" src="#" alt="Banner">
+    </div>
+    <main class="game">
+        <section class="game__hero">
+            <div class="game__cover">
+                <img id="game-cover" src="#" alt="Game Cover">
+            </div>
+            <div class="game__details">
+                <h1 class="game__title" id="game-title"></h1>
+                <p class="game__price" id="game-price"></p>
+                <div class="game__actions">
+                    <button class="game__button game__button--wishlist">
+                        <img loading="lazy" src="/wishlist-icon.svg" alt="Wishlist Icon">
+                    </button>
+                    <button class="game__button game__button--buy">Comprar</button>
+                </div>
+            </div>
+        </section>
+        <section class="visuals">
+            <h2 class="visuals__title">Visuales</h2>
+            <div class="visuals__gallery">
+                <picture class="visuals__item visuals__item--first">
+                    <img id="visuals-cover" src="#" alt="Game Cover First">
+                </picture>
+                <div class="visuals__row">
+                    <picture class="visuals__item ">
+                        <img src="#" alt="Game Cover">
+                    </picture>
+                    <picture class="visuals__item">
+                        <img src="#" alt="Game Cover">
+                    </picture>
+                    <picture class="visuals__item">
+                        <img src="#" alt="Game Cover">
+                    </picture>
+                </div>
+            </div>
+        </section>
+        <section class="about">
+            <h2 class="about__title">Acerca de</h2>
+            <div class="about__content">
+                <div class="about__description" id="about-description"></div>
+                <div class="about__info">
+                    <table class="about__table">
+                        <tbody>
+                            <tr>
+                                <th>Desarrollador:</th>
+                                <th class="about__table-value" id="about-developers"></th>
+                            </tr>
+                            <tr>
+                                <th>Distribuidor:</th>
+                                <th class="about__table-value" id="about-publishers"></th>
+                            </tr>
+                            <tr>
+                                <th>Lanzamiento:</th>
+                                <th class="about__table-value" id="about-release"></th>
+                            </tr>
+                            <tr>
+                                <th>Generos:</th>
+                                <th class="about__table-value" id="about-genres"></th>
+                            </tr>
+                            <tr>
+                                <th>Plataformas:</th>
+                                <th class="about__table-value" id="about-platforms"></th>
+                            </tr>
+                            <tr>
+                                <th>Website:</th>
+                                <th class="about__table-value" id="about-website"></th>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+        <section class="expansions">
+            <h2 class="expansions__title">Extensiones</h2>
+            <div class="expansions__list" id="expansions-list">
+                <div class="expansions__item">
+                    <picture class="expansions__image">
+                        <img src="#" alt="Expansion Cover">
+                    </picture>
+                    <p class="expansions__name"></p>
+                </div>
+                <div class="expansions__item">
+                    <picture class="expansions__image">
+                        <img src="#" alt="Expansion Cover">
+                    </picture>
+                    <p class="expansions__name"></p>
+                </div>
+            </div>
+        </section>
+        <section class="requirements">
+            <h2 class="requirements__title">Requisitos para PC</h2>
+            <div class="requirements__content" id="requirements-pc">
+                <div class="requirements__block">
+                    <h3 class="requirements__subtitle">Mínimos</h3>
+                    <div class="requirements__list" id="requirements-pc-minimum"></div>
+                </div>
+                <div class="requirements__block">
+                    <h3 class="requirements__subtitle">Recomendados</h3>
+                    <div class="requirements__list" id="requirements-pc-recommended"></div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <!-- Comentarios -->
+</MainLayout>
+
+<script type="module" src="/src/scripts/game-loader.js"></script>
+
+<style>
+    /* ==== LOADING ==== */
+    .loader {
+        text-align: center;
+        font-size: 1.2rem;
+        padding: 2rem;
+        color: var(--accent-color);
+    }
+
+    .isLoading::after {
+        content: '';
+        display: block;
+        margin: 1rem auto 0;
+        width: 30px;
+        height: 30px;
+        border: 4px solid var(--accent-color);
+        border-top: 4px solid transparent;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+        to { transform: rotate(360deg); }
+    }
+
+    /* ==== BANNER ==== */
+    .banner {
+        display: none;
+    }
+
+    .banner img {
+        width: 100%;
+    }
+
+    /* ==== GAME HERO ==== */
+    .game__details {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 1rem;
+    }
+
+    .game__title {
+        font-size: 2rem;
+        text-align: center;
+    }
+
+    .game__price {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: var(--accent-color);
+    }
+
+    .game__actions {
+        display: flex;
+        gap: 1rem;
+        margin-top: 1rem;
+    }
+
+    .game__button {
+        padding: 0.5rem 1rem;
+        border: none;
+        cursor: pointer;
+        font-weight: bold;
+        border-radius: 4px;
+
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        background: var(--button-color);
+        color: var(--primary-color)
+    }
+
+    .game__button--wishlist img {
+        width: 20px;
+        height: 20px;
+    }
+
+    .game__button--wishlist.added {
+        background: gray;
+        opacity: 0.8;
+    }
+
+    /*.game__button--buy {
+        background: var(--button-color);
+    }
+
+    .game__button--wishlist {
+        background: var(--button-color);
+        color: #000;
+    
+        img {
+            width: 20px;
+            height: 20px;
+        }
+    }*/
+
+    /* ==== VISUALS ==== */
+    .visuals {
+        padding: 2rem;
+    }
+
+    .visuals__title {
+        margin-bottom: 1rem;
+        font-size: 1.3rem;
+    }
+
+    .visuals__gallery {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .visuals__row {
+        display: flex;
+        gap: 1rem;
+    }
+
+    .visuals__item {
+        flex-basis: 100%;
+    }
+
+    .visuals__item img {
+        width: 100%;
+        border-radius: 6px;
+    }
+
+    /* ==== ABOUT ==== */
+    .about {
+        padding: 2rem;
+    }
+
+    .about__title {
+        margin-bottom: 1rem;
+        font-size: 1.3rem;
+    }
+
+    .about__description {
+        margin-bottom: 2rem;
+        color: var(--secondary-color);
+    }
+
+    .about__table th {
+        text-align: left;
+        padding: 0.5rem 1rem 0.5rem 0;
+        vertical-align: top;
+
+        a {
+            color: var(--accent-color);
+        }
+    }
+
+    .about__table-value {
+        font-weight: normal;
+        color: var(--secondary-color);
+    }
+
+    /* ==== EXPANSIONS ==== */
+    .expansions {
+        padding: 2rem;
+    }
+
+    .expansions__title {
+        margin-bottom: 1rem;
+        font-size: 1.3rem;
+    }
+
+    .expansions__list {
+        display: flex;
+        overflow-x: auto;
+        gap: 1rem;
+        padding-bottom: 1rem;
+
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+
+    .expansions__list::-webkit-scrollbar {
+        display: none;
+    }
+
+    .expansions__item {
+        background-color: var(--secondary-background-color);
+        border-radius: 7px;
+        width: 250px;
+
+        flex: 0 0 auto;
+    }
+
+    .expansions__image img {
+        width: 100%;
+        border-top-right-radius: 7px;
+        border-top-left-radius: 7px;    
+    }
+
+    .expansions__name {
+        margin: 1rem;
+        font-weight: bold;
+    }
+
+    /* ==== REQUIREMENTS ==== */
+    .requirements {
+        padding: 2rem;
+    }
+
+    .requirements__title {
+        margin-bottom: 1rem;
+        font-size: 1.3rem;
+    }
+
+    .requirements__block {
+        margin-bottom: 2rem;
+    }
+
+    .requirements__subtitle {
+        color: var(--accent-color);
+        margin-bottom: 0.5rem;
+        font-size: 1.1rem;
+    }
+
+    .requirements__list {
+        /*list-style: disc inside;*/
+        padding-left: 1rem;
+    }
+
+    /*.requirements__item {
+        margin-bottom: 0.5rem;
+        font-weight: bold;
+
+        span {
+            color: var(--secondary-color);
+            font-weight: normal;
+        }
+    }*/
+
+
+    @media (min-width: 768px) {
+        .banner {
+            display: block;
+            position: relative;
+            width: 100%;
+
+            img {
+                height: 200px;
+                object-fit: cover;
+                display: block;
+            }
+        }
+
+        /* ==== GAME HERO ==== */
+
+        .game {
+            position: relative;
+            top: -10rem;
+            z-index: 1;
+            margin-bottom: -10rem;
+        }
+
+        .game__hero {
+            width: 80vw;
+            margin: 0 auto;
+        }
+
+        .game__cover img{
+            box-shadow: 0px 0px 100px 40px #00000066;
+            -webkit-box-shadow: 0px 0px 100px 40px #00000066);
+            -moz-box-shadow: 0px 0px 100px 40px #00000066;
+
+            border-radius: 10px;
+            background: var(--secondary-background-color);
+        }
+
+        .game__title {
+            font-size: 2.5rem;
+        }
+
+        .game__price {
+            font-size: 2rem;
+        }
+
+        .game__button {
+            height: 50px;
+            font-size: 1.25rem;
+        }
+
+        .game__button--wishlist img {
+            width: 30px;
+            height: 30px;
+        }
+
+        /* ==== VISUALS ==== */
+        .visuals__title {
+            font-size: 1.8rem;
+        }
+
+        /* ==== ABOUT ==== */
+        .about__title {
+            font-size: 1.8rem;
+        }
+
+        .about__description, .about__info {
+            font-size: 1.2rem;
+        }
+
+        /* ==== EXPANSIONS ==== */
+        .expansions__title {
+            font-size: 1.8rem;
+        }
+
+        .expansions__item {
+            width: 300px;
+        }
+
+        .expansions__name {
+            font-size: 1.2rem;
+        }
+
+        /* ==== REQUIREMENTS ==== */
+        .requirements__title {
+            font-size: 1.8rem;
+        }
+
+        .requirements__subtitle {
+            font-size: 1.6rem;
+        }
+
+        .requirements__list {
+            font-size: 1.2rem;
+        }
+        
+    }
+
+    @media (min-width: 1024px) {
+        .banner img {
+            height: 300px;
+        }
+
+        .game {
+            /*top: -9rem;
+            margin-bottom: -9rem;*/
+            width: 80vw;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .game__hero {
+            padding: 0 2rem;
+            padding-bottom: 2rem;
+            
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 3rem;
+        }
+
+        .game__cover img {
+            height: 350px;
+        }
+
+        .game__details {
+            backdrop-filter: blur(60px);
+            padding: 2rem;
+            border-radius: 15px;
+        }
+
+        .game__button--wishlist img {
+            width: 35px;
+            height: 35px;
+        }
+
+        /* ==== VISUALS ==== */
+        .visuals__gallery {
+            flex-direction: row;
+            justify-content: center;
+        }
+
+        .visuals__item--first img {
+            height: 100%;
+        }
+
+        /* ==== ABOUT ==== */
+        .about__content {
+            display: flex;
+            flex-direction: row;
+            /*align-items: center;*/
+            gap: 2rem;
+        }
+
+        .about__description, .about__info {
+            max-width: 500px;
+        }
+
+        /* ==== REQUIREMENTS ==== */
+
+        .requirements__content {
+            display: flex;
+            flex-direction: row;
+            /*align-items: center;*/
+            gap: 2rem;
+        }
+        
+        .requirements__block {
+            flex: 1 1 45%;
+        }
+
+    }
+
+    @media (min-width: 1200px) {
+        .about__description, .about__info {
+            max-width: 800px;
+        }
+    }
+
+</style>

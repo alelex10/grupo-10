@@ -19,6 +19,29 @@ const { title } = Astro.props;
 </html>
 
 <style is:global>
+    :root {
+        --primary-color: oklch(96.82% 0.002 325.59);
+        --secondary-color: oklch(70.14% 0.002 145.56);
+        --accent-color: oklch(70.09% 0.201 44.77);
+    
+        --primary-background-color: oklch(27.27% 0.000 0);
+        --secondary-background-color: oklch(22.93% 0.002 145.50);
+        --button-color: linear-gradient(180deg, oklch(63.49% 0.251 28.81), oklch(78.48% 0.166 66.11));
+    
+        --font-family-base: 'Segoe UI', sans-serif; /* or Arial, sans-serif */
+        --font-size-base: 14px; /* or 16px */
+    
+        /* configuracion images para el searchGames*/
+        --container-width: 400px;
+        --card-height: 70px;
+        --image-width: 100px;
+
+        --radius-md: 10px;
+        --radius-sm: 5px;
+    
+        --color-border: oklch(40% 0 0);
+    }
+
 	/* RESET de CSS */
 	*,
 	*::before,
@@ -28,14 +51,18 @@ const { title } = Astro.props;
 		padding: 0;
 	}
 
-	html {
-		font-size: 16px;
-	}
+    html {
+        font-size: var(--font-size-base);
+    }
 
-	body {
-		height: 1200px;
-		line-height: 1.5;
-	}
+    body {
+        min-height: 100vh;
+        line-height: 1.5;
+
+        font-family: var(--font-family-base);
+        background-color: var(--primary-background-color); 
+        color: var(--primary-color);
+    }
 
 	img,
 	picture,

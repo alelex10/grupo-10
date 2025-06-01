@@ -1,0 +1,155 @@
+---
+import "../pages/payment.css"
+//Aqui importe el componente del buscar juegos para probrar su funcionalidad... posteriormente hay que sacarlo
+import GameSearchClient from '../components/GameSearchClient/GameSearchClient.astro';
+import MainLayout from '../layouts/MainLayout.astro';
+---
+<MainLayout>
+    <div class="payment">
+        <div class="payment__container">
+            <div class="payment__box">
+                <h2 class="payment__title">Metodo de Pago</h2>
+                <div class="payment__card-icons">
+                    <img id="icon-master" src="https://img.icons8.com/color/48/000000/mastercard-logo.png" alt="MasterCard" />
+                    <img id="icon-visa" src="https://img.icons8.com/color/48/000000/visa.png" alt="Visa" />
+                </div>
+                <form id="form-pago" class="payment__form">
+                    <input class="payment__input" type="text" id="card-number" placeholder="1234 5678 9012 3456" maxlength="19" required />
+                    <input class="payment__input" type="text" id="exp-date" placeholder="MM/YY" required />
+                    <input class="payment__input" type="text" id="cvv-code" placeholder="CVV" maxlength="4" required />
+                    <button class="payment__button" type="submit">Confirmar compra</button>
+                    <p id="mensaje" class="payment__mensaje"></p>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <GameSearchClient />
+
+</MainLayout>
+<script>
+//emplee regex (mirar enalce: https://stackoverflow.com/questions/9315647/regex-credit-card-number-tests)
+document.addEventListener("DOMContentLoaded", () => {
+    // Acceso a elementos
+    const $ = id => document.getElementById(id);
+  
+    const visaIcon = $("icon-visa");
+    const masterCardIcon = $("icon-master");
+
+    const form = $("form-pago");
+    const messageEl = $("mensaje");
+    const cardInput = $("card-number");
+    const dateInput = $("exp-date");
+    const cvvInput = $("cvv-code");
+
+    const message = {
+        invalidCard: type => `Tarjeta invalida (${type === "Unknown" ? "desconocida" : type})`,
+        invalidDate: "Fecha de vencimiento invalida",
+        invalidCVV: "Codigo de seguridad invalido",
+        success: "Se realizo la compra!"
+    };
+
+    //----------------------------------------------------------------------
+    function onlyDigits(str) {
+        return str.replace(/\D/g, "");
+    }
+
+    function getCardType(number) {
+        const d = onlyDigits(number);
+        if (/^4\d{12}(\d{3})?$/.test(d)) return "Visa";
+        if (/^5[1-5]\d{14}$/.test(d) || /^2(2[2-9]|[3-6]|7[01])\d{12}$/.test(d)) return "MasterCard";
+        return "Unknown";
+    }
+
+    //------------------------------- funcion que busque de internet, valida numero de tarjetas de forma simple perfecta para la simulacion: https://www.geeksforgeeks.org/luhn-algorithm/ ---------------
+    function luhnCheck(number) {
+        const digits = onlyDigits(number).split("").reverse().map(Number);
+        const sum = digits.reduce((acc, digit, i) => {
+        if (i % 2) {
+            digit *= 2;
+            if (digit > 9) digit -= 9;
+        }
+        return acc + digit;
+        }, 0);
+        return sum % 10 === 0;
+    }
+
+    //-------------------------------------------VALIDACIONES--------------------------------------------------------
+
+    function isValidCard(number) {
+        const type = getCardType(number);
+        const valid = luhnCheck(number) && type !== "Unknown";
+        return { type, valid };
+    }
+
+    function isValidDate(value) {
+        const [mm, yy] = value.split("/").map(Number);
+        if (!mm || !yy) return false;
+        const expDate = new Date(2000 + yy, mm);
+        return mm >= 1 && mm <= 12 && expDate > new Date();
+    }
+
+    function isValidCVV(value) {
+        return /^\d{3,4}$/.test(value);
+    }
+
+    //--------------------------------------------------------------------------------
+
+    function showMessage(text, color) {
+        messageEl.textContent = text;
+        messageEl.style.color = color;
+    }
+
+    function updateIcons(number) {
+        const type = getCardType(number);
+        visaIcon.style.opacity = type === "Visa" ? 1 : 0.2;
+        masterCardIcon.style.opacity = type === "MasterCard" ? 1 : 0.2;
+    }
+
+    //----------------------------------- formateo al tiempo de interaccion del usuario con los input---------------
+    function formatCardNumber(value) {
+        const d = onlyDigits(value).slice(0, 16);
+        return d.match(/.{1,4}/g)?.join(" ") || "";
+    }
+
+    function formatDate(value) {
+        const d = onlyDigits(value).slice(0, 4);
+        return d.length > 2 ? `${d.slice(0, 2)}/${d.slice(2)}` : d;
+    }
+
+    function formatCVV(value) {
+        return onlyDigits(value).slice(0, 4);
+    }
+
+    //---------------------------------- eventos de los inputs----------------------
+    cardInput.addEventListener("input", e => {
+        const formatted = formatCardNumber(e.target.value);
+        cardInput.value = formatted;
+        updateIcons(formatted);
+    });
+
+    dateInput.addEventListener("input", e => {
+        dateInput.value = formatDate(e.target.value);
+    });
+
+    cvvInput.addEventListener("input", e => {
+        cvvInput.value = formatCVV(e.target.value);
+    });
+
+    updateIcons(cardInput.value);
+
+    //---------------------------------------------------------------------------------
+    form.addEventListener("submit", e => {
+        e.preventDefault();
+
+        const card = isValidCard(cardInput.value);
+        const dateOk = isValidDate(dateInput.value);
+        const cvvOk = isValidCVV(cvvInput.value);
+
+        if (!card.valid) return showMessage(message.invalidCard(card.type), "red");
+        if (!dateOk) return showMessage(message.invalidDate, "red");
+        if (!cvvOk) return showMessage(message.invalidCVV, "red");
+
+        showMessage(message.success, "green");
+    });
+});
