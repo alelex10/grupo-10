@@ -1,0 +1,124 @@
+/* Este es el root combinado entre los dos root de estilos existentes */
+/* Se debra eliminar al momento de integrar */
+:root {
+    --primary-color: oklch(96.82% 0.002 325.59);
+    --secondary-color: oklch(70.14% 0.002 145.56);
+    --accent-color: oklch(70.09% 0.201 44.77);
+  
+    --primary-background-color: oklch(27.27% 0.000 0);
+    --secondary-background-color: oklch(22.93% 0.002 145.50);
+    --button-color: linear-gradient(180deg, oklch(63.49% 0.251 28.81), oklch(78.48% 0.166 66.11));
+  
+    --font-family-base: 'Segoe UI', sans-serif;
+    --font-size-base: 14px;
+  
+    /* configuracion images para el searchGames*/
+    --container-width: 400px;
+    --card-height: 70px;
+    --image-width: 100px;
+
+    --radius-md: 10px;
+    --radius-sm: 5px;
+  
+    --color-border: oklch(40% 0 0);
+}
+
+.payment {
+    font-family: var(--font-family-base);
+    background: var(--primary-background-color);
+    color: var(--primary-color);
+    padding: 2rem;
+    display: flex;
+    justify-content: center;
+}
+  
+.payment__container {
+    display: flex;
+    gap: 2rem;
+}
+  
+.payment__box,
+.wishlist {
+    background: var(--secondary-background-color);
+    padding: 2rem;
+    border-radius: var(--radius-md);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    width: var(--container-width);
+}
+  
+.payment__title,
+.wishlist__title {
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+}
+  
+.payment__card-icons {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    align-items: center;
+}
+  
+.payment__card-icons img {
+    height: 30px;
+}
+  
+.payment__form {
+    display: flex;
+    flex-direction: column;
+}
+  
+.payment__input {
+    background-color: var(--secondary-background-color);
+    color: var(--primary-color);
+    width: 100%;
+    margin: 0.5rem 0;
+    padding: 0.7rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    font-size: var(--font-size-base);
+}
+  
+.payment__button {
+    width: 100%;
+    padding: 0.8rem;
+    background: var(--button-color);
+    color: var(--primary-background-color);
+    border: none;
+    border-radius: var(--radius-sm);
+    font-weight: bold;
+    margin-top: 1rem;
+    cursor: pointer;
+}
+  
+.payment__mensaje {
+    margin-top: 1rem;
+    font-weight: bold;
+    text-align: center;
+    color: var(--secondary-color);
+}
+  
+.wishlist__list {
+    padding: 0;
+    list-style: none;
+}
+  
+.wishlist__item {
+    background: var(--secondary-background-color);
+    margin-bottom: 0.5rem;
+    padding: 0.5rem;
+    border-radius: var(--radius-sm);
+    display: flex;
+    justify-content: space-between;
+    color: var(--primary-color);
+}
+  
+.wishlist__button {
+    background: transparent;
+    border: 1px solid var(--accent-color);
+    color: var(--accent-color);
+    padding: 0.2rem 0.5rem;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+}
+  
