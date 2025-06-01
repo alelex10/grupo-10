@@ -7,7 +7,7 @@ import MainLayout from '../layouts/MainLayout.astro';
         <h1 class="wishlist__title">Wishlist</h1>
         <p class="wishlist__description">Aquí se encuentra todos los juegos que has agregado a tu wishlist.</p>
         <div class="wishlist__list">
-            <div class="wishlist__item">
+            <!-- <div class="wishlist__item">
                 <picture class="item__image">
                     <img src="https://media.rawg.io/media/screenshots/36f/36f941f72e2b2a41629f5fb3bd448688.jpg" alt="Juego 1">
                 </picture>
@@ -17,20 +17,38 @@ import MainLayout from '../layouts/MainLayout.astro';
                         <img src="/bin.svg" alt="Icono de Borrar">
                     </button>
                 </div>
-            </div>
-            <div class="wishlist__item">
-                <picture class="item__image">
-                    <img src="https://media.rawg.io/media/screenshots/36f/36f941f72e2b2a41629f5fb3bd448688.jpg" alt="Juego 2">
-                </picture>
-                <div class="item__details">
-                    <h2 class="item__title">Juego 2</h2>
-                    <button class="item__button">
-                        <img src="/bin.svg" alt="Icono de Borrar">
-                    </button>
-                </div>
-            </div>
+            </div> -->
         </div>
     </section>
+    <script type="module">
+        import { getWishlist, removeFromWishlist } from '/src/scripts/wishlist.js';
+        import { renderWishlistItem } from '/src/scripts/renderWishlistItem.js';
+
+        const container = document.querySelector('.wishlist__list');
+        const wishlist = getWishlist();
+
+        if (wishlist.length === 0) {
+            container.innerHTML = '<p>No hay juegos en tu wishlist.</p>';
+        }else {
+            container.innerHTML = '';
+
+            wishlist.forEach(game => {
+                const item = renderWishlistItem(game, 'data-astro-cid-wygaj5zz');
+
+                item.querySelector('.item__button').addEventListener('click', () => {
+                    removeFromWishlist(game.id);
+                    item.remove();
+
+                    if (container.children.length === 0) {
+                        container.innerHTML = '<p data-astro-cid-wygaj5zz>No hay juegos en tu wishlist.</p>';
+                    }
+                });
+
+                container.appendChild(item);
+            });
+        }
+    </script>
+
 </MainLayout>
 
 <style>
@@ -73,10 +91,6 @@ import MainLayout from '../layouts/MainLayout.astro';
         padding: 1rem;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
         transition: box-shadow 0.3s ease;
-    }
-
-    .wishlist__item:hover {
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     }
 
     .item__image img {
