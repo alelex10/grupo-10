@@ -12,33 +12,44 @@ const { title } = Astro.props;
 		<title>{title}</title>
 	</head>
 	<body>
-		<slot />
+		<main>
+			<slot />
+		</main>
 	</body>
 </html>
 
 <style is:global>
 	/* RESET de CSS */
-    *, *::before, *::after {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-    }
+	*,
+	*::before,
+	*::after {
+		box-sizing: border-box;
+		margin: 0;
+		padding: 0;
+	}
 
-    html {
-        font-size: 16px;
-    }
+	html {
+		font-size: 16px;
+	}
 
-    body {
-        min-height: 100vh;
-        line-height: 1.5;
-    }
+	body {
+		height: 1200px;
+		line-height: 1.5;
+	}
 
-    img, picture, video, canvas, svg {
-        display: block;
-        max-width: 100%;
-    }
+	img,
+	picture,
+	video,
+	canvas,
+	svg {
+		display: block;
+		max-width: 100%;
+	}
 
-    input, button, textarea, select {
-        font: inherit;
-    }
+	input,
+	button,
+	textarea,
+	select {
+		font: inherit;
+	}
 </style>

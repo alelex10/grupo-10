@@ -1,8 +1,9 @@
 ---
 import MainLayout from "../layouts/MainLayout.astro";
-import Catalog from "./catalog/CatalogSection.astro";
+import Catalog from "@/pages/catalog/sections/CatalogSection.astro";
+import Home from "./catalog/Home.astro";
 ---
 
-<MainLayout>
-	<Catalog />
+<MainLayout title="Home">
+	<Home></Home>
 </MainLayout>

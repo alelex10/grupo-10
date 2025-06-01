@@ -1,5 +1,6 @@
 ---
-import CardImg from "../../components/CardImg.astro";
+import CardImg from "@components/CardImg.astro";
+import { getGames } from "../../../api/rawg";
 ---
 
 <section class="catalog">
@@ -10,6 +11,7 @@ import CardImg from "../../components/CardImg.astro";
 			alt="Grand Theft Auto V"
 			title="Grand Theft Auto V"
 			rating="4.5"
+			genres={[{ id: 1, name: "Accion", slug: "accion" }]}
 		/>
 	</span>
 </section>
@@ -26,22 +28,14 @@ import CardImg from "../../components/CardImg.astro";
 		display: grid;
 		justify-items: center;
 		grid-template-columns: repeat(4, 1fr);
-		grid-template-rows: repeat(3, 1fr);
+		grid-template-rows: repeat(4, 1fr);
 		gap: 1rem;
 	}
 </style>
 <script>
-	import { API_KEY, BASE_URL } from "../../api/rawg";
+	import { API_KEY, BASE_URL } from "@/api/rawg";
 
 	const $container = document.querySelector(".container");
-
-	export async function getGames(params = "") {
-		const response = await fetch(`${BASE_URL}/games?key=${API_KEY}&${params}`);
-		if (!response.ok) {
-			throw new Error("Error al obtener los juegos");
-		}
-		return await response.json();
-	}
 
 	/* 	for (let i = 1; i <= 12; i++) {
 		$container.innerHTML += `
