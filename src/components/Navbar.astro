@@ -2,14 +2,15 @@
 ---
 
 <header class="site-header">
-    <nav class="site-header__navbar navbar">
-        <a class="navbar__logo" href="/">Steam</a> 
-        <ul class="navbar__nav-links"> 
-            <!-- <li class="navbar__item"><a class="navbar__link" href="/juegos">Juegos</a></li>
-            <li class="navbar__item"><a class="navbar__link" href="/ofertas">Ofertas</a></li> -->
+    <nav class="navbar">
+        <a class="navbar__logo" href="/">
+            <img class="navbar__logo-image" src="/logo.svg" alt="Logo de GameVault" />
+            <p class="navbar__logo-title">GameVault</p>
+        </a>
+        <ul class="navbar__nav">
             <slot />
-            <li class="navbar__item"><a class="navbar__link" href="/contact">Contacto</a></li>
-            <li class="navbar__item"><a class="navbar__link" href="/wishlist">Wishlist</a></li>
+            <!-- <li class="navbar__item"><a class="navbar__link" href="/contact">Contacto</a></li> -->
+            <li class="nav__item"><a class="item__link" href="/wishlist">Wishlist</a></li>
         </ul>
     </nav>
 </header>
@@ -24,29 +25,89 @@
     .navbar {
         display: flex;
         justify-content: space-between;
+        gap: 0.5rem;
         align-items: center;
     }
 
     .navbar__logo {
-        font-size: 1.5rem;
-        font-weight: bold;
-        color: #fff;
+        display: flex;
+        align-items: center;
+        color: var(--accent-color);
         text-decoration: none;
     }
 
-    .navbar__nav-links {
+    .navbar__logo-image {
+        width: 40px;
+        height: 40px;
+    }
+
+    .navbar__logo-title {
+        display: none;
+    }
+
+    .navbar__nav {
         list-style: none;
         display: flex;
+        align-items: center;
         gap: 1rem;
+        width: 100%;
     }
 
-    .navbar__link {
-        color: #ccc;
+    .nav__item {
+        background-color: var(--secondary-background-color);
+        padding: 0.5rem;
+        border-radius: var(--radius-sm);
+    }
+
+    .item__link {
+        color: var(--secondary-color);
         text-decoration: none;
     }
 
-    .navbar__link:hover {
-        color: #fff;
+    .item__link:hover {
+        color: var(--primary-color);
+    }
+
+    @media (min-width: 768px) {
+
+        .site-header {
+            padding-left: 2.5rem;
+            padding-right: 2.5rem;
+        }
+
+        .navbar {
+            justify-content: space-between;
+        }
+
+        .navbar__logo {
+            justify-content: center;
+        }
+
+        .navbar__logo-image {
+            width: 50px;
+            height: 50px;
+            margin-right: 0.25rem;
+        }
+
+        .navbar__logo-title {
+            display: block;
+            font-size: 1.75rem;
+            font-weight: bold;
+        }
+
+        .navbar__nav {
+            gap: 2rem;
+            width: auto;
+        }
+
+        .nav__item {
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+
+        .item__link {
+            font-size: 1.25rem;
+        }
     }
 
 </style>
