@@ -17,7 +17,8 @@ import './GameSearchClient.css';
     const resultsList = document.getElementById('resultsList');
     const resultsContainer = document.querySelector('.search-container__results');
     let timeout;
-
+    let cachedResults = [];
+    
     input?.addEventListener('input', () => {
         clearTimeout(timeout);
         const query = input.value.trim();
@@ -35,6 +36,8 @@ import './GameSearchClient.css';
         try {
             const res = await fetch(`https://api.rawg.io/api/games?search=${encodeURIComponent(query)}&page_size=10&key=${API_KEY}`);
             const { results = [] } = await res.json();
+
+            cachedResults = results;
 
             resultsList.innerHTML = results.length
                 ? results.map(game => renderGame(game, query)).join("")
@@ -68,4 +71,22 @@ import './GameSearchClient.css';
     function highlight(text, query) {
         return text.replace(new RegExp(`(${query})`, "gi"), "<mark>$1</mark>");
     }
+
+    document.addEventListener('click', (e) => {
+        const isClickInside = input.contains(e.target) || resultsContainer.contains(e.target);
+        if (!isClickInside) {
+            resultsContainer.style.display = 'none';
+        }
+    });
+    
+    input?.addEventListener("focus", () => {
+        const query = input.value.trim();
+        if (query.length >= 2 && cachedResults.length > 0) {
+            resultsList.innerHTML = cachedResults.map(game => renderGame(game, query)).join("");
+            resultsContainer.style.display = 'block';
+    }
+
+});
+
+
 </script>

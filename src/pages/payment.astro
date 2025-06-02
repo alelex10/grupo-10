@@ -1,46 +1,50 @@
 ---
 import "../pages/payment.css"
 //Aqui importe el componente del buscar juegos para probrar su funcionalidad... posteriormente hay que sacarlo
-import GameSearchClient from '../components/GameSearchClient/GameSearchClient.astro';
 import MainLayout from '../layouts/MainLayout.astro';
+import PaymentCard from '../components/Target/PaymentCard.astro'
 ---
 <MainLayout>
     <div class="payment">
         <div class="payment__container">
             <div class="payment__box">
                 <h2 class="payment__title">Metodo de Pago</h2>
-                <div class="payment__card-icons">
-                    <img id="icon-master" src="https://img.icons8.com/color/48/000000/mastercard-logo.png" alt="MasterCard" />
-                    <img id="icon-visa" src="https://img.icons8.com/color/48/000000/visa.png" alt="Visa" />
-                </div>
+                <PaymentCard></PaymentCard>
                 <form id="form-pago" class="payment__form">
                     <input class="payment__input" type="text" id="card-number" placeholder="1234 5678 9012 3456" maxlength="19" required />
                     <input class="payment__input" type="text" id="exp-date" placeholder="MM/YY" required />
                     <input class="payment__input" type="text" id="cvv-code" placeholder="CVV" maxlength="4" required />
+                    <div class="payment__total">
+                        Total a pagar: <span id="total-amount">$0.00</span>
+                    </div>  
                     <button class="payment__button" type="submit">Confirmar compra</button>
                     <p id="mensaje" class="payment__mensaje"></p>
                 </form>
+                <div class="payment__success hidden" id="payment-success">
+                    <h2 class="payment__success-title">Compra Exitosa!</h2>
+                    <p class="payment__success-text">Gracias por su compra.</p>
+                    <button id="volver-btn" class="payment__success-button">Volver</button>
+                </div>
+                  
             </div>
         </div>
     </div>
-
-    <GameSearchClient />
-
 </MainLayout>
+
 <script>
 //emplee regex (mirar enalce: https://stackoverflow.com/questions/9315647/regex-credit-card-number-tests)
 document.addEventListener("DOMContentLoaded", () => {
     // Acceso a elementos
     const $ = id => document.getElementById(id);
   
-    const visaIcon = $("icon-visa");
-    const masterCardIcon = $("icon-master");
+    const visaIcon = $("icon-visa") as HTMLInputElement;
+    const masterCardIcon = $("icon-master") as HTMLInputElement;
 
-    const form = $("form-pago");
-    const messageEl = $("mensaje");
-    const cardInput = $("card-number");
-    const dateInput = $("exp-date");
-    const cvvInput = $("cvv-code");
+    const form = $("form-pago") as HTMLInputElement;
+    const messageEl = $("mensaje") as HTMLInputElement;
+    const cardInput = $("card-number") as HTMLInputElement;
+    const dateInput = $("exp-date") as HTMLInputElement;
+    const cvvInput = $("cvv-code") as HTMLInputElement;
 
     const message = {
         invalidCard: type => `Tarjeta invalida (${type === "Unknown" ? "desconocida" : type})`,
@@ -102,11 +106,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function updateIcons(number) {
         const type = getCardType(number);
-        visaIcon.style.opacity = type === "Visa" ? 1 : 0.2;
-        masterCardIcon.style.opacity = type === "MasterCard" ? 1 : 0.2;
+        visaIcon.style.opacity = type === "Visa" ? "1" : "0.2";
+        masterCardIcon.style.opacity = type === "MasterCard" ? "1" : "0.2";
     }
 
-    //----------------------------------- formateo al tiempo de interaccion del usuario con los input---------------
+    //----------------------------------- formateo de los datos ingresados del usurio---------------
     function formatCardNumber(value) {
         const d = onlyDigits(value).slice(0, 16);
         return d.match(/.{1,4}/g)?.join(" ") || "";
@@ -121,24 +125,76 @@ document.addEventListener("DOMContentLoaded", () => {
         return onlyDigits(value).slice(0, 4);
     }
 
+    //mostrar precio total en funcion de la wishlits, se alimenta de datos del storage
+    function getWishlistFromStorage() {
+        try {
+            const raw = localStorage.getItem("wishlist");
+            if (!raw) return [];
+            return JSON.parse(raw);
+        } catch (e) {
+            console.error("Error al leer wishlist:", e);
+            return [];
+        }
+    }
+
+    function renderTotal(games) {
+        const total = games.reduce((acc, game) => acc + (game.price || 0), 0);
+        $("total-amount").textContent = `$${total.toFixed(2)}`;
+    }
+
+    const wishlist = getWishlistFromStorage();
+    renderTotal(wishlist);
+
+
     //---------------------------------- eventos de los inputs----------------------
     cardInput.addEventListener("input", e => {
-        const formatted = formatCardNumber(e.target.value);
+        const input = e.target as HTMLInputElement;
+        const formatted = formatCardNumber(input.value);
         cardInput.value = formatted;
         updateIcons(formatted);
     });
 
     dateInput.addEventListener("input", e => {
-        dateInput.value = formatDate(e.target.value);
+        const input = e.target as HTMLInputElement;
+        dateInput.value = formatDate(input.value);
     });
 
     cvvInput.addEventListener("input", e => {
-        cvvInput.value = formatCVV(e.target.value);
+        const input = e.target as HTMLInputElement;
+        cvvInput.value = formatCVV(input.value);
     });
 
     updateIcons(cardInput.value);
 
-    //---------------------------------------------------------------------------------
+    //---------------------------Interaccion visual con componente tarjeta-------
+    function updateCardVisual() {
+    const number = cardInput.value;
+    const date = dateInput.value || "MM/YY";
+    const digits = onlyDigits(number);
+    const type = getCardType(number);
+
+    $("card-number-preview").textContent = digits.length ? formatCardNumber(number) : "**** **** **** 0000";
+    $("card-date-preview").textContent = date;
+
+    const card = $("card-preview");
+
+    if (type === "Visa") {
+        card.style.background = "linear-gradient(135deg, #f6d365, #fda085)";
+    } else if (type === "MasterCard") {
+        card.style.background = "linear-gradient(135deg, #84fab0, #8fd3f4)";
+    } else {
+        card.style.background = "linear-gradient(135deg, var(--secondary-background-color), var(--primary-background-color))";
+        }
+    }
+    cardInput.addEventListener("input", updateCardVisual);
+    dateInput.addEventListener("input", updateCardVisual);
+    $("name-card")?.addEventListener("input", updateCardVisual);
+
+
+    //-----------------------------------Evento compra-----------------------------------------
+    const successLayer = $("payment-success");
+    const volverBtn = $("volver-btn");
+
     form.addEventListener("submit", e => {
         e.preventDefault();
 
@@ -150,6 +206,15 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!dateOk) return showMessage(message.invalidDate, "red");
         if (!cvvOk) return showMessage(message.invalidCVV, "red");
 
-        showMessage(message.success, "green");
+        showMessage("", "");
+
+        setTimeout(() => {
+            successLayer.classList.add("show");
+        }, 500);
     });
+    //------------------ al efectuar la compra redirege a pagina index.js,----------------------------
+    volverBtn.addEventListener("click", () => {
+        window.location.href = "/";
+    });
+
 });

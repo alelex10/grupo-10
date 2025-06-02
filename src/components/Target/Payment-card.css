@@ -1,0 +1,87 @@
+.payment-card {
+    width: 100%;
+    max-width: 340px;
+    aspect-ratio: 16 / 10;
+    border-radius: var(--radius-md);
+    background: linear-gradient(135deg, var(--secondary-background-color), var(--primary-background-color));
+    color: var(--primary-color);
+    padding: 1rem 1.2rem;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+    position: relative;
+    font-family: var(--font-family-base);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: background 0.4s ease;
+}
+  
+.payment-card__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: bold;
+    font-size: 1rem;
+}
+  
+.payment-card__bank-logo {
+    color: var(--primary-color);
+}
+  
+.payment-card__chip-nfc {
+    display: flex;
+    align-items: center;
+    margin: 1rem 0;
+}
+  
+.payment-card__chip {
+    height: 30px;
+    margin-right: 0.5rem;
+}
+  
+.payment-card__nfc {
+    height: 18px;
+}
+  
+.payment-card__type-logo {
+    width: 60px;
+    height: 20px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: right;
+}
+  
+.payment-card__number {
+    text-align: center;
+    font-size: 1.5rem;
+    letter-spacing: 3px;
+    margin: 0.5rem 0;
+}
+  
+.payment-card__valid {
+    font-size: 0.75rem;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.2rem;
+}
+  
+.payment-card__brand-logo {
+    height: 28px;
+    width: 50px;
+    align-self: flex-end;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: right;
+}
+  
+.payment-card__icons {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.payment-card__icons img {
+    height: 30px;
+}
+
