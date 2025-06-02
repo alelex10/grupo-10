@@ -37,14 +37,14 @@ document.addEventListener("DOMContentLoaded", () => {
     // Acceso a elementos
     const $ = id => document.getElementById(id);
   
-    const visaIcon = $("icon-visa");
-    const masterCardIcon = $("icon-master");
+    const visaIcon = $("icon-visa") as HTMLInputElement;
+    const masterCardIcon = $("icon-master") as HTMLInputElement;
 
-    const form = $("form-pago");
-    const messageEl = $("mensaje");
-    const cardInput = $("card-number");
-    const dateInput = $("exp-date");
-    const cvvInput = $("cvv-code");
+    const form = $("form-pago") as HTMLInputElement;
+    const messageEl = $("mensaje") as HTMLInputElement;
+    const cardInput = $("card-number") as HTMLInputElement;
+    const dateInput = $("exp-date") as HTMLInputElement;
+    const cvvInput = $("cvv-code") as HTMLInputElement;
 
     const message = {
         invalidCard: type => `Tarjeta invalida (${type === "Unknown" ? "desconocida" : type})`,
@@ -106,8 +106,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function updateIcons(number) {
         const type = getCardType(number);
-        visaIcon.style.opacity = type === "Visa" ? 1 : 0.2;
-        masterCardIcon.style.opacity = type === "MasterCard" ? 1 : 0.2;
+        visaIcon.style.opacity = type === "Visa" ? "1" : "0.2";
+        masterCardIcon.style.opacity = type === "MasterCard" ? "1" : "0.2";
     }
 
     //----------------------------------- formateo de los datos ingresados del usurio---------------
@@ -148,17 +148,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
     //---------------------------------- eventos de los inputs----------------------
     cardInput.addEventListener("input", e => {
-        const formatted = formatCardNumber(e.target.value);
+        const input = e.target as HTMLInputElement;
+        const formatted = formatCardNumber(input.value);
         cardInput.value = formatted;
         updateIcons(formatted);
     });
 
     dateInput.addEventListener("input", e => {
-        dateInput.value = formatDate(e.target.value);
+        const input = e.target as HTMLInputElement;
+        dateInput.value = formatDate(input.value);
     });
 
     cvvInput.addEventListener("input", e => {
-        cvvInput.value = formatCVV(e.target.value);
+        const input = e.target as HTMLInputElement;
+        cvvInput.value = formatCVV(input.value);
     });
 
     updateIcons(cardInput.value);
