@@ -19,21 +19,43 @@ import MainLayout from '../layouts/MainLayout.astro';
                 </div>
             </div> -->
         </div>
+        <div class="wishlist__actions">
+            <button class="wishlist__button" id="buy-all" type="button">Comprar todo</button>
+        </div>
     </section>
     <script type="module">
         import { getWishlist, removeFromWishlist } from '/src/scripts/wishlist.js';
-        import { renderWishlistItem } from '/src/scripts/renderWishlistItem.js';
 
         const container = document.querySelector('.wishlist__list');
         const wishlist = getWishlist();
+        const buyButton = document.querySelector('#buy-all');
+
+        buyButton.addEventListener('click', () => {
+            window.location.href = '/payment';
+        });
 
         if (wishlist.length === 0) {
             container.innerHTML = '<p>No hay juegos en tu wishlist.</p>';
+            buyButton.disabled = true;
         }else {
             container.innerHTML = '';
 
             wishlist.forEach(game => {
-                const item = renderWishlistItem(game, 'data-astro-cid-wygaj5zz');
+                const item = document.createElement('div');
+                item.setAttribute('data-astro-cid-wygaj5zz', '');
+                item.classList.add('wishlist__item');
+
+                item.innerHTML = `
+                    <picture class="item__image" data-astro-cid-wygaj5zz>
+                        <img src="${game.cover}" alt="${game.name}" data-astro-cid-wygaj5zz>
+                    </picture>
+                    <div class="item__details" data-astro-cid-wygaj5zz>
+                        <h2 class="item__title" data-astro-cid-wygaj5zz>${game.name}</h2>
+                        <button class="item__button" aria-label="Eliminar de la wishlist" data-astro-cid-wygaj5zz>
+                            <img src="/bin-icon.svg" alt="Icono de Borrar" data-astro-cid-wygaj5zz>
+                        </button>
+                    </div>
+                `;
 
                 item.querySelector('.item__button').addEventListener('click', () => {
                     removeFromWishlist(game.id);
@@ -41,6 +63,7 @@ import MainLayout from '../layouts/MainLayout.astro';
 
                     if (container.children.length === 0) {
                         container.innerHTML = '<p data-astro-cid-wygaj5zz>No hay juegos en tu wishlist.</p>';
+                        buyButton.disabled = true;
                     }
                 });
 
@@ -121,6 +144,23 @@ import MainLayout from '../layouts/MainLayout.astro';
         height: 25px;
     }
 
+    .wishlist__actions {
+        display: flex;
+        justify-content: center;
+        margin-top: 5rem;
+    }
+
+    .wishlist__button {
+        padding: 0.5rem 1rem;
+        border: none;
+        cursor: pointer;
+        border-radius: 4px;
+        height: 40px;
+        background: var(--button-color);
+        font-weight: bold;
+        color: var(--primary-color);
+        text-decoration: none;
+    }
 
     @media (min-width: 768px) {
         .wishlist__item {
@@ -137,6 +177,10 @@ import MainLayout from '../layouts/MainLayout.astro';
         .item__details {
             margin-left: 1rem;
             width: 100%;
+        }
+
+        .wishlist__button {
+            font-size: 1.25rem;
         }
     }
 
