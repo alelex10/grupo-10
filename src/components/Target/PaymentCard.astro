@@ -1,0 +1,23 @@
+---
+import './Payment-card.css'
+---
+
+<div class="payment-card" id="card-preview">
+    <div class="payment-card__header">
+        <div class="payment-card__bank-logo">BANK</div>
+        <div class="payment-card__type-logo" id="card-type-logo"></div>
+    </div>
+    <div class="payment-card__chip-nfc">
+        <img src="/chip.svg" alt="Chip" class="payment-card__chip" />
+        <img src="/nfc.svg" alt="NFC" class="payment-card__nfc" />
+    </div>
+    <div class="payment-card__number" id="card-number-preview">**** **** **** 0000</div>
+    <div class="payment-card__valid">
+        <span id="card-date-preview">MM/YY</span>
+    </div>
+    <div class="payment-card__brand-logo" id="brand-logo"></div>
+    <div class="payment-card__icons">
+        <img id="icon-master" src="/mastercard-icon.svg" alt="MasterCard" />
+        <img id="icon-visa" src="/visa-icon.svg" alt="Visa" />
+    </div>
+</div>

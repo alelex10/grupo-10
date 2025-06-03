@@ -1,0 +1,207 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+---
+
+<MainLayout title="Wishlist">
+    <section class="wishlist">
+        <h1 class="wishlist__title">Wishlist</h1>
+        <p class="wishlist__description">Aquí se encuentra todos los juegos que has agregado a tu wishlist.</p>
+        <div class="wishlist__list">
+            <!-- <div class="wishlist__item">
+                <picture class="item__image">
+                    <img src="https://media.rawg.io/media/screenshots/36f/36f941f72e2b2a41629f5fb3bd448688.jpg" alt="Juego 1">
+                </picture>
+                <div class="item__details">
+                    <h2 class="item__title">Juego 1</h2>
+                    <button class="item__button">
+                        <img src="/bin.svg" alt="Icono de Borrar">
+                    </button>
+                </div>
+            </div> -->
+        </div>
+        <div class="wishlist__actions">
+            <button class="wishlist__button" id="buy-all" type="button">Comprar todo</button>
+        </div>
+    </section>
+    <script type="module">
+        import { getWishlist, removeFromWishlist } from '/src/scripts/wishlist.js';
+
+        const container = document.querySelector('.wishlist__list');
+        const wishlist = getWishlist();
+        const buyButton = document.querySelector('#buy-all');
+
+        buyButton.addEventListener('click', () => {
+            window.location.href = '/payment';
+        });
+
+        if (wishlist.length === 0) {
+            container.innerHTML = '<p>No hay juegos en tu wishlist.</p>';
+            buyButton.disabled = true;
+        }else {
+            container.innerHTML = '';
+
+            wishlist.forEach(game => {
+                const item = document.createElement('div');
+                item.setAttribute('data-astro-cid-wygaj5zz', '');
+                item.classList.add('wishlist__item');
+
+                item.innerHTML = `
+                    <picture class="item__image" data-astro-cid-wygaj5zz>
+                        <img src="${game.cover}" alt="${game.name}" data-astro-cid-wygaj5zz>
+                    </picture>
+                    <div class="item__details" data-astro-cid-wygaj5zz>
+                        <h2 class="item__title" data-astro-cid-wygaj5zz>${game.name}</h2>
+                        <button class="item__button" aria-label="Eliminar de la wishlist" data-astro-cid-wygaj5zz>
+                            <img src="/bin-icon.svg" alt="Icono de Borrar" data-astro-cid-wygaj5zz>
+                        </button>
+                    </div>
+                `;
+
+                item.querySelector('.item__button').addEventListener('click', () => {
+                    removeFromWishlist(game.id);
+                    item.remove();
+
+                    if (container.children.length === 0) {
+                        container.innerHTML = '<p data-astro-cid-wygaj5zz>No hay juegos en tu wishlist.</p>';
+                        buyButton.disabled = true;
+                    }
+                });
+
+                container.appendChild(item);
+            });
+        }
+    </script>
+
+</MainLayout>
+
+<style>
+    .wishlist {
+        padding: 1.5rem 1rem;
+    }
+
+    .wishlist__title {
+        font-size: 1.75rem;
+        margin-bottom: 0.5rem;
+        color: var(--primary-color);
+    }
+
+    .wishlist__description {
+        font-size: 1rem;
+        color: var(--secondary-color);
+        margin-bottom: 1.5rem;
+    }
+
+    .wishlist__list {
+        display: flex;
+        flex-direction: column;
+        gap: 1.25rem;
+    }
+
+    .wishlist__item {
+        display: flex;
+        flex-direction: column;
+        background-color: var(--secondary-background-color);
+        border-radius: 8px;
+        padding: 1rem;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        transition: box-shadow 0.3s ease;
+    }
+
+    .item__image img {
+        width: 100%;
+        height: auto;
+        max-height: 180px;
+        object-fit: cover;
+        border-radius: 6px;
+        margin-bottom: 0.75rem;
+    }
+
+    .item__details {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .item__title {
+        font-size: 1.25rem;
+        color: var(--primary-color);
+        margin: 0;
+        flex: 1;
+    }
+
+    .item__button {
+        background: var(--button-color);
+        border: none;
+        cursor: pointer;
+        padding: 0.5rem;
+        border-radius: 4px;
+        transition: background-color 0.2s ease;
+    }
+
+    .item__button img {
+        width: 25px;
+        height: 25px;
+    }
+
+    .wishlist__actions {
+        display: flex;
+        justify-content: center;
+        margin-top: 5rem;
+    }
+
+    .wishlist__button {
+        padding: 0.5rem 1rem;
+        border: none;
+        cursor: pointer;
+        border-radius: 4px;
+        height: 40px;
+        background: var(--button-color);
+        font-weight: bold;
+        color: var(--primary-color);
+        text-decoration: none;
+    }
+
+    @media (min-width: 768px) {
+        .wishlist__item {
+            flex-direction: row;
+            align-items: center;
+        }
+
+        .item__image img {
+            width: 120px;
+            height: 70px;
+            margin-bottom: 0;
+        }
+
+        .item__details {
+            margin-left: 1rem;
+            width: 100%;
+        }
+
+        .wishlist__button {
+            font-size: 1.25rem;
+        }
+    }
+
+
+    @media (min-width: 1024px) {
+        .wishlist {
+            max-width: 960px;
+            margin: 0 auto;
+        }
+
+        .wishlist__title {
+            font-size: 2rem;
+        }
+
+        .wishlist__description {
+            font-size: 1.125rem;
+        }
+
+        .item__title {
+            font-size: 1.5rem;
+        }
+    }
+
+</style>

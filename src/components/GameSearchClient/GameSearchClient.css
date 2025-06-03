@@ -1,0 +1,116 @@
+.search-container {
+    width: 100%;
+    border-radius: var(--radius-md);
+    font-family: var(--font-family-base);
+    font-size: var(--font-size-base);
+}
+  
+input[type="text"] {
+    width: 100%;
+    padding: 0.5rem;
+    padding-left: 1rem;
+    border-radius: var(--radius-sm);
+    border: none;
+    outline: none;
+    background-color: var(--secondary-background-color);
+    color: var(--primary-color);
+}
+
+input[type="text"]::placeholder {
+    color: var(--secondary-color);
+}
+
+.search-container__results {
+    display: none;
+    position: absolute;
+    left: 0;
+    width: 100%;
+    margin-top: 0.5rem;
+    border-radius: var(--radius-sm);
+    padding: 0.5rem;
+    background-color: var(--secondary-background-color);
+    z-index: 2;
+}
+  
+#resultsList {
+    display: grid;
+    grid-template-rows: none;
+    gap: 1rem;
+    padding: 0;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    list-style: none;
+
+    li a{
+        text-decoration: none;
+    }
+}
+  
+.game-result {
+    height: var(--card-height); /* AQUI UNICA MEDIDA 1de2 */
+    display: flex;
+    flex-direction: row;
+    background-color: var(--primary-background-color);
+    padding: 0.5rem;
+    border-radius: var(--radius-sm);
+    gap: 0.5rem;
+    overflow: hidden;
+    box-sizing: border-box;
+    text-align: left;
+    align-items: center;
+}
+  
+.game-image-container {
+    width: var(--image-width); /* AQUI UNICA MEDIDA 1de2 */
+    height: 100%;
+    background-color: oklch(40% 0 0);
+    flex-shrink: 0;
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+}
+  
+.game-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: var(--radius-sm);
+}
+  
+.game-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+  
+.game-info h3 {
+    color: var(--primary-color);
+}
+  
+.game-info p {
+    color: var(--secondary-color);
+}
+  
+.game-info mark {
+    background: var(--accent-color);
+    color: black;
+}
+
+
+/*-------------------------@MEDIA----------------------------*/
+
+@media (min-width: 768px) {
+    .search-container {
+        width: var(--container-width);
+    }
+
+    input[type="text"] {
+        font-size: 1.25rem;
+    }
+
+    .search-container__results {
+        left: auto;
+        width: var(--container-width);
+    }
+}
+  

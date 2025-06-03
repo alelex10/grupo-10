@@ -1,0 +1,22 @@
+---
+import Carousel from "@components/Catalog/Carousel.astro";
+---
+
+<section class="hero">
+	<h1 class="hero__title">Mas Populares</h1>
+	<Carousel />
+</section>
+
+<style>
+	.hero {
+		height: calc(100vh - var(--navbar-height));
+		position: relative;
+	}
+	.hero__title {
+		position: absolute;
+		top: 0;
+		left: 50%;
+		transform: translateX(-50%);
+		z-index: 1;
+	}
+</style>
