@@ -18,7 +18,9 @@ import Footer from "@components/Footer.astro";
 		<Navbar>
 			<GameSearchClient />
 		</Navbar>
-		<slot />
+		<main>
+			<slot />
+		</main>
 		<Footer />
 	</body>
 </html>
@@ -62,6 +64,8 @@ import Footer from "@components/Footer.astro";
 	}
 
 	body {
+		width: 85%;
+		margin: 0 auto;
 		min-height: 100vh;
 		line-height: 1.5;
 

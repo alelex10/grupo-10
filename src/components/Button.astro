@@ -1,0 +1,18 @@
+---
+const { class: className, ...props } = Astro.props;
+---
+
+<button {...props} class:list={["payment__success-button", className]}>
+	<slot />
+</button>
+
+<style>
+	.payment__success-button {
+		background: var(--button-color);
+		color: black;
+		padding: 0.8rem 1.5rem;
+		border-radius: var(--radius-md);
+		font-weight: bold;
+		cursor: pointer;
+	}
+</style>
