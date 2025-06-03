@@ -1,0 +1,59 @@
+---
+const gameId = "juego-1";
+---
+
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Juego</title>
+  </head>
+  <body>
+    <h1>Nombre del juego</h1>
+    <p>Acá iría la descripción del juego.</p>
+
+    <section>
+      <h2>Comentarios</h2>
+      <div id="comments"></div>
+
+      <form id="comment-form">
+        <textarea id="comment-input" required placeholder="Dejá tu comentario..."></textarea>
+        <button type="submit">Enviar</button>
+      </form>
+    </section>
+
+    <script type="module">
+      const gameId = "juego-1"; // rutas dinámicas maybe
+      const commentBox = document.getElementById('comments');
+      const form = document.getElementById('comment-form');
+      const input = document.getElementById('comment-input');
+
+      const user = JSON.parse(localStorage.getItem("loggedUser"));
+
+      const renderComments = () => {
+        const data = JSON.parse(localStorage.getItem("comments") || "{}");
+        const list = data[gameId] || [];
+        commentBox.innerHTML = list.map(c => `<p><strong>${c.user}</strong>: ${c.text}</p>`).join("");
+      };
+
+      if (!user) {
+        form.style.display = "none";
+        commentBox.insertAdjacentHTML("beforebegin", `<p>Iniciá sesión para comentar.</p>`);
+      } else {
+        form.addEventListener("submit", (e) => {
+          e.preventDefault();
+          const text = input.value.trim();
+          if (!text) return;
+
+          const all = JSON.parse(localStorage.getItem("comments") || "{}");
+          all[gameId] = all[gameId] || [];
+          all[gameId].push({ user: user.username, text });
+          localStorage.setItem("comments", JSON.stringify(all));
+          input.value = "";
+          renderComments();
+        });
+      }
+
+      renderComments();
+    </script>
+  </body>
+</html>
