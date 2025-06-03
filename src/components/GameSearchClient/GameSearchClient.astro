@@ -3,8 +3,10 @@ import './GameSearchClient.css';
 ---
 
 <div class="search-container">
-  <input type="text" id="searchInput" placeholder="Buscando juegos..." />
-  <ul id="resultsList"></ul>
+    <input type="text" id="searchInput" placeholder="Buscando juegos..." autocomplete="off" />
+    <div class="search-container__results">
+        <ul id="resultsList"></ul>
+    </div>
 </div>
 
 <script type="module">
@@ -13,13 +15,19 @@ import './GameSearchClient.css';
 
     const input = document.getElementById('searchInput');
     const resultsList = document.getElementById('resultsList');
+    const resultsContainer = document.querySelector('.search-container__results');
     let timeout;
-
+    let cachedResults = [];
+    
     input?.addEventListener('input', () => {
         clearTimeout(timeout);
         const query = input.value.trim();
 
-        if (query.length < 2) return resultsList.innerHTML = "";
+        //if (query.length < 2) return resultsList.innerHTML = "";
+        if (query.length < 2) {
+            resultsContainer.style.display = 'none';
+            return resultsList.innerHTML = "";
+        }
 
         timeout = setTimeout(() => fetchGames(query), 300);
     });
@@ -29,32 +37,56 @@ import './GameSearchClient.css';
             const res = await fetch(`https://api.rawg.io/api/games?search=${encodeURIComponent(query)}&page_size=10&key=${API_KEY}`);
             const { results = [] } = await res.json();
 
+            cachedResults = results;
+
             resultsList.innerHTML = results.length
                 ? results.map(game => renderGame(game, query)).join("")
                 : "<li>No hay juego XD?.</li>";
-            } catch (err) {
-                console.error("Error fetching games:", err);
-                resultsList.innerHTML = "<li>Error al obtener juegos.</li>";
-            }
+        } catch (err) {
+            console.error("Error fetching games:", err);
+            resultsList.innerHTML = "<li>Error al obtener juegos.</li>";
+        }
+        
+        resultsContainer.style.display = 'block';
     }
 
     function renderGame(game, query) {
         return `
             <li>
-                <div class="game-result">
-                    <figure class="game-image-container">
-                        <img src="${game.background_image}" alt="${game.name}" />
-                    </figure>
-                    <div class="game-info">
-                        <h3>${highlight(game.name, query)}</h3>
-                        <p>Fecha: ${game.released ?? 'Vacio'}</p>
-                        <p>Rating: ${game.rating ?? 'No hay ranking'}</p>
+                <a href="/game?title=${game.slug}">
+                    <div class="game-result">
+                        <figure class="game-image-container">
+                            <img src="${game.background_image}" alt="${game.name}" />
+                        </figure>
+                        <div class="game-info">
+                            <h3>${highlight(game.name, query)}</h3>
+                            <p>Fecha: ${game.released ?? 'Vacio'}</p>
+                            <p>Rating: ${game.rating ?? 'No hay ranking'}</p>
+                        </div>
                     </div>
-                </div>
+                </a>
             </li>`;
     }
     //efeto visual para el marcado, emplo regex el color esta defino en style del componente
     function highlight(text, query) {
         return text.replace(new RegExp(`(${query})`, "gi"), "<mark>$1</mark>");
     }
+
+    document.addEventListener('click', (e) => {
+        const isClickInside = input.contains(e.target) || resultsContainer.contains(e.target);
+        if (!isClickInside) {
+            resultsContainer.style.display = 'none';
+        }
+    });
+    
+    input?.addEventListener("focus", () => {
+        const query = input.value.trim();
+        if (query.length >= 2 && cachedResults.length > 0) {
+            resultsList.innerHTML = cachedResults.map(game => renderGame(game, query)).join("");
+            resultsContainer.style.display = 'block';
+    }
+
+});
+
+
 </script>

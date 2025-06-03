@@ -1,0 +1,46 @@
+---
+
+---
+<footer class="site-footer">
+    <div class="company-info">
+        <p class="site-footer__text">© 2025 GameVault</p>
+        <a href="/contact" class="site-footer__text">Contacto</a>
+    </div>
+    <p class="site-footer__text">Nos reservamos el derecho a no reservar ningún derecho.</p>
+</footer>
+
+
+<style>
+    .site-footer {
+        background-color: oklch(17.91% 0.005 145.36);
+        color: #ccc;
+        text-align: center;
+        padding: 1rem;
+    }
+
+    .company-info {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 2rem;
+
+        a {
+            color: var(--secondary-color);
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: var(--primary-color);
+        }
+    }
+
+    .site-footer__text {
+        margin-top: 0.5rem;
+    }
+
+    @media (min-width: 768px) {
+        .site-footer__text {
+            font-size: 1.25rem;
+        }
+    }
+</style>

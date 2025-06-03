@@ -1,5 +1,8 @@
 ---
 const { title } = Astro.props;
+import Navbar from '@components/Navbar.astro';
+import GameSearchClient from '../components/GameSearchClient/GameSearchClient.astro';
+import Footer from '@components/Footer.astro';
 ---
 
 <!doctype html>
@@ -12,9 +15,11 @@ const { title } = Astro.props;
 		<title>{title}</title>
 	</head>
 	<body>
-		<main>
-			<slot />
-		</main>
+        <Navbar>
+            <GameSearchClient />
+        </Navbar>
+		<slot />
+        <Footer />
 	</body>
 </html>
 
