@@ -8,6 +8,13 @@ interface Props {
 	genres: Genres[];
 }
 const { src, alt, title, rating, genres } = Astro.props;
+function drawStarsRating(rating: number) {
+	let stars = "";
+	for (let i = 0; i < rating; i++) {
+		stars += "⭐";
+	}
+	return stars;
+}
 ---
 
 <div class="catalog__container__card">
@@ -15,9 +22,9 @@ const { src, alt, title, rating, genres } = Astro.props;
 	<div class="catalog__container__card--body">
 		<div>
 			<h4>{title}</h4>
-			<span><b>{rating}</b></span>
+			<span class="card__rating">{drawStarsRating(rating)}</span>
 		</div>
-		<div>{genres.map((genre) => <span>{genre.name}</span>)}</div>
+		<div>{genres.map((genre) => <span class="card__genres">{genre.name}</span>)}</div>
 	</div>
 </div>
 <style>
@@ -74,10 +81,9 @@ const { src, alt, title, rating, genres } = Astro.props;
 			margin: 0;
 			overflow: hidden;
 			text-overflow: ellipsis;
-			/* para mostrar 4 lineas y luego un ... */
-			display: -webkit-box;
-			-webkit-box-orient: vertical;
-			-webkit-line-clamp: 4;
 		}
+	}
+
+	.card__genres {
 	}
 </style>
