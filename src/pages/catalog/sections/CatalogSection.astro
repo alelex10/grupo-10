@@ -1,6 +1,7 @@
 ---
 import CardImg from "@components/Catalog/CardImg.astro";
 import { getGames } from "../../../api/rawg";
+import Button from "../../../components/Button.astro";
 ---
 
 <section class="catalog">
@@ -17,6 +18,7 @@ import { getGames } from "../../../api/rawg";
 					return games.results.map((game) => {
 						return (
 							<CardImg
+								slug={game.slug}
 								src={getLowResImage(game.background_image)}
 								alt={game.name}
 								title={game.name}
@@ -30,8 +32,8 @@ import { getGames } from "../../../api/rawg";
 		}
 	</span>
 	<span class="catalog__container__buttons">
-		<button class="catalog__container__buttons--prev">Prev</button>
-		<button class="catalog__container__buttons--next">Next</button>
+		<Button class="catalog__container__buttons--prev">Prev</Button>
+		<Button class="catalog__container__buttons--next">Next</Button>
 	</span>
 </section>
 
