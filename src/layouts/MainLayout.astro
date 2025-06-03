@@ -1,8 +1,8 @@
 ---
 const { title } = Astro.props;
-import Navbar from '@components/Navbar.astro';
-import GameSearchClient from '../components/GameSearchClient/GameSearchClient.astro';
-import Footer from '@components/Footer.astro';
+import Navbar from "@components/Navbar.astro";
+import GameSearchClient from "../components/GameSearchClient/GameSearchClient.astro";
+import Footer from "@components/Footer.astro";
 ---
 
 <!doctype html>
@@ -15,37 +15,38 @@ import Footer from '@components/Footer.astro';
 		<title>{title}</title>
 	</head>
 	<body>
-        <Navbar>
-            <GameSearchClient />
-        </Navbar>
+		<Navbar>
+			<GameSearchClient />
+		</Navbar>
 		<slot />
-        <Footer />
+		<Footer />
 	</body>
 </html>
 
 <style is:global>
-    :root {
-        --primary-color: oklch(96.82% 0.002 325.59);
-        --secondary-color: oklch(70.14% 0.002 145.56);
-        --accent-color: oklch(70.09% 0.201 44.77);
-    
-        --primary-background-color: oklch(27.27% 0.000 0);
-        --secondary-background-color: oklch(22.93% 0.002 145.50);
-        --button-color: linear-gradient(180deg, oklch(63.49% 0.251 28.81), oklch(78.48% 0.166 66.11));
-    
-        --font-family-base: 'Segoe UI', sans-serif; /* or Arial, sans-serif */
-        --font-size-base: 14px; /* or 16px */
-    
-        /* configuracion images para el searchGames*/
-        --container-width: 400px;
-        --card-height: 70px;
-        --image-width: 100px;
+	:root {
+		--primary-color: oklch(96.82% 0.002 325.59);
+		--secondary-color: oklch(70.14% 0.002 145.56);
+		--accent-color: oklch(70.09% 0.201 44.77);
 
-        --radius-md: 10px;
-        --radius-sm: 5px;
-    
-        --color-border: oklch(40% 0 0);
-    }
+		--primary-background-color: oklch(27.27% 0 0);
+		--secondary-background-color: oklch(22.93% 0.002 145.5);
+		--button-color: linear-gradient(180deg, oklch(63.49% 0.251 28.81), oklch(78.48% 0.166 66.11));
+
+		--font-family-base: "Segoe UI", sans-serif; /* or Arial, sans-serif */
+		--font-size-base: 14px; /* or 16px */
+
+		/* configuracion images para el searchGames*/
+		--container-width: 400px;
+		--card-height: 70px;
+		--image-width: 100px;
+
+		--radius-md: 10px;
+		--radius-sm: 5px;
+
+		--color-border: oklch(40% 0 0);
+		--navbar-height: 6rem;
+	}
 
 	/* RESET de CSS */
 	*,
@@ -56,18 +57,18 @@ import Footer from '@components/Footer.astro';
 		padding: 0;
 	}
 
-    html {
-        font-size: var(--font-size-base);
-    }
+	html {
+		font-size: var(--font-size-base);
+	}
 
-    body {
-        min-height: 100vh;
-        line-height: 1.5;
+	body {
+		min-height: 100vh;
+		line-height: 1.5;
 
-        font-family: var(--font-family-base);
-        background-color: var(--primary-background-color); 
-        color: var(--primary-color);
-    }
+		font-family: var(--font-family-base);
+		background-color: var(--primary-background-color);
+		color: var(--primary-color);
+	}
 
 	img,
 	picture,

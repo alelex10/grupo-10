@@ -20,11 +20,11 @@ function drawStarsRating(rating: number) {
 <div class="catalog__container__card">
 	<img class="catalog__container__card--img" src={src} alt={alt} />
 	<div class="catalog__container__card--body">
-		<div>
-			<h4>{title}</h4>
+		<div class="body__title__rating">
 			<span class="card__rating">{drawStarsRating(rating)}</span>
+			<h4>{title}</h4>
 		</div>
-		<div>{genres.map((genre) => <span class="card__genres">{genre.name}</span>)}</div>
+		<div>{genres.map((g) => g.name).join(", ")}</div>
 	</div>
 </div>
 <style>
@@ -71,10 +71,7 @@ function drawStarsRating(rating: number) {
 		color: #fff;
 		padding: 0.5rem 1rem;
 		transition: all 0.3s ease-in-out;
-		& div {
-			display: flex;
-			justify-content: space-between;
-		}
+
 		& p {
 			font-size: 0.9rem;
 			line-height: 0.8rem;
@@ -84,6 +81,7 @@ function drawStarsRating(rating: number) {
 		}
 	}
 
-	.card__genres {
+	.card__rating {
+		float: inline-end;
 	}
 </style>

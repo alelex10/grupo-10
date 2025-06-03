@@ -1,113 +1,113 @@
 ---
+
 ---
 
 <header class="site-header">
-    <nav class="navbar">
-        <a class="navbar__logo" href="/">
-            <img class="navbar__logo-image" src="/logo.svg" alt="Logo de GameVault" />
-            <p class="navbar__logo-title">GameVault</p>
-        </a>
-        <ul class="navbar__nav">
-            <slot />
-            <!-- <li class="navbar__item"><a class="navbar__link" href="/contact">Contacto</a></li> -->
-            <li class="nav__item"><a class="item__link" href="/wishlist">Wishlist</a></li>
-        </ul>
-    </nav>
+	<nav class="navbar">
+		<a class="navbar__logo" href="/">
+			<img class="navbar__logo-image" src="/logo.svg" alt="Logo de GameVault" />
+			<p class="navbar__logo-title">GameVault</p>
+		</a>
+		<ul class="navbar__nav">
+			<slot />
+			<!-- <li class="navbar__item"><a class="navbar__link" href="/contact">Contacto</a></li> -->
+			<li class="nav__item"><a class="item__link" href="/wishlist">Wishlist</a></li>
+		</ul>
+	</nav>
 </header>
 
 <style>
-    /* ==== HEADER ==== */
-    .site-header {
-        background-color: oklch(17.91% 0.005 145.36);
-        padding: 1rem;
-    }
+	/* ==== HEADER ==== */
+	.site-header {
+		background-color: oklch(17.91% 0.005 145.36);
+		padding: 1rem;
+		height: var(--navbar-height);
+	}
 
-    .navbar {
-        display: flex;
-        justify-content: space-between;
-        gap: 0.5rem;
-        align-items: center;
-    }
+	.navbar {
+		display: flex;
+		justify-content: space-between;
+		gap: 0.5rem;
+		align-items: center;
+	}
 
-    .navbar__logo {
-        display: flex;
-        align-items: center;
-        color: var(--accent-color);
-        text-decoration: none;
-    }
+	.navbar__logo {
+		display: flex;
+		align-items: center;
+		color: var(--accent-color);
+		text-decoration: none;
+	}
 
-    .navbar__logo-image {
-        width: 40px;
-        height: 40px;
-    }
+	.navbar__logo-image {
+		width: 40px;
+		height: 40px;
+	}
 
-    .navbar__logo-title {
-        display: none;
-    }
+	.navbar__logo-title {
+		display: none;
+	}
 
-    .navbar__nav {
-        list-style: none;
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-        width: 100%;
-    }
+	.navbar__nav {
+		list-style: none;
+		display: flex;
+		align-items: center;
+		gap: 1rem;
+		width: 100%;
+	}
 
-    .nav__item {
-        background-color: var(--secondary-background-color);
-        padding: 0.5rem;
-        border-radius: var(--radius-sm);
-    }
+	.nav__item {
+		background-color: var(--secondary-background-color);
+		padding: 0.5rem;
+		border-radius: var(--radius-sm);
+	}
 
-    .item__link {
-        color: var(--secondary-color);
-        text-decoration: none;
-    }
+	.item__link {
+		color: var(--secondary-color);
+		text-decoration: none;
+	}
 
-    .item__link:hover {
-        color: var(--primary-color);
-    }
+	.item__link:hover {
+		color: var(--primary-color);
+	}
 
-    @media (min-width: 768px) {
+	@media (min-width: 768px) {
+		.site-header {
+			padding-left: 2.5rem;
+			padding-right: 2.5rem;
+		}
 
-        .site-header {
-            padding-left: 2.5rem;
-            padding-right: 2.5rem;
-        }
+		.navbar {
+			justify-content: space-between;
+		}
 
-        .navbar {
-            justify-content: space-between;
-        }
+		.navbar__logo {
+			justify-content: center;
+		}
 
-        .navbar__logo {
-            justify-content: center;
-        }
+		.navbar__logo-image {
+			width: 50px;
+			height: 50px;
+			margin-right: 0.25rem;
+		}
 
-        .navbar__logo-image {
-            width: 50px;
-            height: 50px;
-            margin-right: 0.25rem;
-        }
+		.navbar__logo-title {
+			display: block;
+			font-size: 1.75rem;
+			font-weight: bold;
+		}
 
-        .navbar__logo-title {
-            display: block;
-            font-size: 1.75rem;
-            font-weight: bold;
-        }
+		.navbar__nav {
+			gap: 2rem;
+			width: auto;
+		}
 
-        .navbar__nav {
-            gap: 2rem;
-            width: auto;
-        }
+		.nav__item {
+			padding-left: 1rem;
+			padding-right: 1rem;
+		}
 
-        .nav__item {
-            padding-left: 1rem;
-            padding-right: 1rem;
-        }
-
-        .item__link {
-            font-size: 1.25rem;
-        }
-    }
-
+		.item__link {
+			font-size: 1.25rem;
+		}
+	}
 </style>

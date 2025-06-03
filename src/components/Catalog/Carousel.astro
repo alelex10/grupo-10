@@ -1,11 +1,11 @@
+---
+import ItemCarousel from "./itemCarousel.astro";
+---
+
 <section class="carousel" aria-label="Gallery">
 	<ol class="carousel__viewport">
-		<li id="carousel__slide1" tabindex="0" class="carousel__slide">
-			<div class="carousel__snapper">
-				<a href="#carousel__slide4" class="carousel__prev">Go to last slide</a>
-				<a href="#carousel__slide2" class="carousel__next">Go to next slide</a>
-			</div>
-		</li>
+		<ItemCarousel />
+
 		<li id="carousel__slide2" tabindex="0" class="carousel__slide">
 			<div class="carousel__snapper"></div>
 			<a href="#carousel__slide1" class="carousel__prev">Go to previous slide</a>
@@ -74,8 +74,6 @@
 	body {
 		max-width: 1200px;
 		margin: 0 auto;
-		padding: 0 1.25rem;
-		font-family: "Lato", sans-serif;
 	}
 
 	* {
@@ -93,7 +91,7 @@
 
 	.carousel {
 		position: relative;
-		height: 100vh; /* restarle el navbar */
+		height: calc(100vh - var(--navbar-height)); /* restarle el navbar */
 		filter: drop-shadow(0 0 10px #0003);
 		perspective: 100px;
 	}
@@ -145,7 +143,7 @@
 	.carousel__snapper {
 		animation-name: tonext, snap;
 		animation-timing-function: linear;
-		animation-duration: 3s;
+		animation-duration: 1s;
 		animation-iteration-count: infinite;
 	}
 
