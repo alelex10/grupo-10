@@ -11,3 +11,6 @@ export async function getGames(params = ""): Promise<getGamesResponse> {
 	}
 	return await response.json();
 }
+export async function getGameMostPopular() {
+	return await getGames("&ordering=-added");
+}

@@ -9,6 +9,7 @@ import { getGames } from "../../../api/rawg";
 		{
 			async () => {
 				let page = 1;
+				/* para obtener imagenes de menor resolucion */
 				function getLowResImage(originalUrl: string, width = 600) {
 					return originalUrl.replace("/media/games/", `/media/resize/${width}/-/games/`);
 				}
@@ -61,11 +62,15 @@ import { getGames } from "../../../api/rawg";
 	import { getGames } from "../../../api/rawg";
 	import type { getGamesResponse } from "../../../type/rawgTypes";
 
+	// Event listener (btns sig-ant)
+	const $btnPrev = document.querySelector(".catalog__container__buttons--prev");
+	const $btnNext = document.querySelector(".catalog__container__buttons--next");
 	let currentPage = 1;
 
 	const editCatalog = (page: number) => {
 		getGames(`page=${page}`).then((json) => edidCards(json));
 	};
+
 	function drawStarsRating(rating: number) {
 		let stars = "";
 		for (let i = 0; i < rating; i++) {
@@ -73,9 +78,11 @@ import { getGames } from "../../../api/rawg";
 		}
 		return stars;
 	}
+	/* para obtener imagenes de menor resolucion */
 	function getLowResImage(originalUrl, width = 600) {
 		return originalUrl.replace("/media/games/", `/media/resize/${width}/-/games/`);
 	}
+
 	function edidCards(json: getGamesResponse) {
 		const $cards = document.querySelectorAll(".catalog__container__card");
 		$cards?.forEach(($card: Element, i) => {
@@ -102,9 +109,6 @@ import { getGames } from "../../../api/rawg";
 			editCatalog(currentPage);
 		}
 	}
-	// Event listener (btns sig-ant)
-	const $btnPrev = document.querySelector(".catalog__container__buttons--prev");
-	const $btnNext = document.querySelector(".catalog__container__buttons--next");
 
 	$btnPrev?.addEventListener("click", anteriorPag);
 	$btnNext?.addEventListener("click", siguientePag);
