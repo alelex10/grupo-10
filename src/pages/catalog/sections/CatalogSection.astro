@@ -1,10 +1,12 @@
 ---
 import CardImg from "@components/Catalog/CardImg.astro";
 import { getGames } from "../../../api/rawg";
+import Button from "../../../components/Button.astro";
+import AnimationScrollCard from "../../../components/AnimationScrollCard.astro";
 ---
 
 <section class="catalog">
-	<h1 class="catalog__title">catalog</h1>
+	<h1 class="catalog__title">Catalogo</h1>
 	<span class="catalog__container">
 		{
 			async () => {
@@ -16,13 +18,16 @@ import { getGames } from "../../../api/rawg";
 				return getGames(`page=${page}`).then((games) => {
 					return games.results.map((game) => {
 						return (
-							<CardImg
-								src={getLowResImage(game.background_image)}
-								alt={game.name}
-								title={game.name}
-								rating={game.rating}
-								genres={game.genres}
-							/>
+							<AnimationScrollCard>
+								<CardImg
+									slug={game.slug}
+									src={getLowResImage(game.background_image)}
+									alt={game.name}
+									title={game.name}
+									rating={game.rating}
+									genres={game.genres}
+								/>
+							</AnimationScrollCard>
 						);
 					});
 				});
@@ -30,8 +35,8 @@ import { getGames } from "../../../api/rawg";
 		}
 	</span>
 	<span class="catalog__container__buttons">
-		<button class="catalog__container__buttons--prev">Prev</button>
-		<button class="catalog__container__buttons--next">Next</button>
+		<Button class="catalog__container__buttons--prev">Prev</Button>
+		<Button class="catalog__container__buttons--next">Next</Button>
 	</span>
 </section>
 
@@ -86,8 +91,12 @@ import { getGames } from "../../../api/rawg";
 	function edidCards(json: getGamesResponse) {
 		const $cards = document.querySelectorAll(".catalog__container__card");
 		$cards?.forEach(($card: Element, i) => {
+			const $anchor = $card.querySelector(".catalog__container__card--link");
+			$anchor?.setAttribute("href", `/game?title=${json.results[i].slug}`);
 			const $img = $card.querySelector(".catalog__container__card--img");
 			$img?.setAttribute("src", getLowResImage(json.results[i].background_image));
+			const $alt = $card.querySelector(".catalog__container__card--img");
+			$alt?.setAttribute("alt", json.results[i].name);
 			const $title = $card.querySelector(".catalog__container__card--body h4");
 			$title && ($title.textContent = json.results[i].name);
 			const $rating = $card.querySelector(".catalog__container__card--body span");
@@ -112,8 +121,4 @@ import { getGames } from "../../../api/rawg";
 
 	$btnPrev?.addEventListener("click", anteriorPag);
 	$btnNext?.addEventListener("click", siguientePag);
-
-	// editCatalog(currentPage);
-
-	// ------------------------------------
 </script>
