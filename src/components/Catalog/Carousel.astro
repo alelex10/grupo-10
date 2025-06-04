@@ -79,10 +79,7 @@ const games = await getGameNews();
 	}
 
 	body {
-		max-width: 80%;
 		margin: 0 auto;
-		padding: 0 1.25rem;
-		font-family: "Lato", sans-serif;
 	}
 
 	* {
@@ -116,6 +113,8 @@ const games = await getGameNews();
 	}
 
 	.carousel {
+		padding: auto 2rem;
+		overflow-x: hidden;
 		position: relative;
 		height: calc(100vh - var(--navbar-height)); /* restarle el navbar */
 
