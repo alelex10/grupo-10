@@ -1,8 +1,10 @@
 ---
 import MainLayout from '../layouts/MainLayout.astro';
+import Notification from '@components/Notification.astro';
 ---
 
 <MainLayout title="Game Details">
+    <Notification />
     <div id="loader" class="loader isLoading">
         Cargando información del juego...
     </div>

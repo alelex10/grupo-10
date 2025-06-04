@@ -1,3 +1,5 @@
+import { showNotification } from './notification.js';
+
 function getWishlist() {
     return JSON.parse(localStorage.getItem('wishlist')) || [];
 }
@@ -23,7 +25,7 @@ function removeFromWishlist(id) {
     saveWishlist(wishlist);
 }
 
-export function setupWishlistButton(game, buttonEl) {
+export function setupWishlistButton(game, buttonEl, notificationEl) {
     if (!buttonEl) return;
 
     if (isInWishlist(game.id)) {
@@ -41,11 +43,13 @@ export function setupWishlistButton(game, buttonEl) {
 
         if (isInWishlist(game.id)) {
             removeFromWishlist(game.id);
-            alert(`${game.name} fue eliminado de tu wishlist`);
+            showNotification(`${game.name} fue eliminado de tu wishlist`, notificationEl);
+            //alert(`${game.name} fue eliminado de tu wishlist`);
             buttonEl.classList.remove('added');
         } else {
             addToWishlist(gameData);
-            alert(`${game.name} fue agregado a tu wishlist`);
+            showNotification(`${game.name} fue agregado a tu wishlist`, notificationEl);
+            //alert(`${game.name} fue agregado a tu wishlist`);
             buttonEl.classList.add('added');
         }
     });

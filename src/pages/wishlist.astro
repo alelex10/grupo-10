@@ -1,8 +1,10 @@
 ---
 import MainLayout from '../layouts/MainLayout.astro';
+import Notification from '@components/Notification.astro';
 ---
 
 <MainLayout title="Wishlist">
+    <Notification />
     <section class="wishlist">
         <h1 class="wishlist__title">Wishlist</h1>
         <p class="wishlist__description">Aquí se encuentra todos los juegos que has agregado a tu wishlist.</p>
@@ -24,11 +26,13 @@ import MainLayout from '../layouts/MainLayout.astro';
         </div>
     </section>
     <script type="module">
-        import { getWishlist, removeFromWishlist } from '/src/scripts/wishlist.js';
+        import { getWishlist, removeFromWishlist } from '/scripts/wishlist.js';
+        import { showNotification } from '/scripts/notification.js';
 
         const container = document.querySelector('.wishlist__list');
         const wishlist = getWishlist();
         const buyButton = document.querySelector('#buy-all');
+        const notificationEl = document.getElementById('notification');
 
         buyButton.addEventListener('click', () => {
             window.location.href = '/payment';
@@ -59,6 +63,7 @@ import MainLayout from '../layouts/MainLayout.astro';
 
                 item.querySelector('.item__button').addEventListener('click', () => {
                     removeFromWishlist(game.id);
+                    showNotification(`${game.name} fue eliminado de tu wishlist`, notificationEl);
                     item.remove();
 
                     if (container.children.length === 0) {
