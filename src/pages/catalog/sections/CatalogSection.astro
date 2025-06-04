@@ -91,8 +91,12 @@ import AnimationScrollCard from "../../../components/AnimationScrollCard.astro";
 	function edidCards(json: getGamesResponse) {
 		const $cards = document.querySelectorAll(".catalog__container__card");
 		$cards?.forEach(($card: Element, i) => {
+			const $anchor = $card.querySelector(".catalog__container__card--link");
+			$anchor?.setAttribute("href", `/game?title=${json.results[i].slug}`);
 			const $img = $card.querySelector(".catalog__container__card--img");
 			$img?.setAttribute("src", getLowResImage(json.results[i].background_image));
+			const $alt = $card.querySelector(".catalog__container__card--img");
+			$alt?.setAttribute("alt", json.results[i].name);
 			const $title = $card.querySelector(".catalog__container__card--body h4");
 			$title && ($title.textContent = json.results[i].name);
 			const $rating = $card.querySelector(".catalog__container__card--body span");
