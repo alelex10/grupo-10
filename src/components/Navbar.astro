@@ -7,6 +7,7 @@
 		<a class="navbar__logo" href="/">
 			<img class="navbar__logo-image" src="/logo.svg" alt="Logo de GameVault" />
 			<p class="navbar__logo-title">GameVault</p>
+			<div id="auth-button" class="navbar__login"></div>
 		</a>
 		<ul class="navbar__nav">
 			<slot />
@@ -14,9 +15,36 @@
 			<li class="nav__item"><a class="item__link" href="/wishlist">Wishlist</a></li>
 		</ul>
 	</nav>
+		<script type="module">
+	import { auth } from '/scripts/autenticacion.js';
+
+	const wrapper = document.getElementById("auth-button");
+	const user = auth.getUser();
+
+	if (wrapper) {
+		if (user) {
+		const btn = document.createElement("button");
+		btn.classList.add("boton-login");
+		btn.textContent = "Cerrar sesión";
+		btn.onclick = () => {
+			btn.style.opacity ="0"
+			auth.logout();
+			location.reload();
+		};
+		wrapper.appendChild(btn);
+		} else {
+		const link = document.createElement("a");
+		link.href = "/login";
+		link.className = "boton-login";
+		link.textContent = "Iniciar sesión";
+		wrapper.appendChild(link);
+		}
+	}
+	</script>
+
 </header>
 
-<style>
+<style is:global>
 	/* ==== HEADER ==== */
 	.site-header {
 		background-color: oklch(17.91% 0.005 145.36);
@@ -110,4 +138,32 @@
 			font-size: 1.25rem;
 		}
 	}
+	/* .boton-login {
+	background-color: orange;
+	color: black;
+	border: none;
+	border-radius: 5px;
+	padding: 0.4rem 0.8rem;
+	font-weight: bold;
+	cursor: pointer;
+	margin-left: 1rem;
+	} */
+	.boton-login {
+		background-color: var(--accent-color);
+		color: var(--primary-background-color);
+		border: none;
+		padding: 0.5rem 1rem;
+		border-radius: 5px;
+		font-weight: bold;
+		cursor: pointer;
+		margin-left: 1rem;
+		transition: background-color 0.3s ease;
+		}
+
+.boton-login:hover {
+  background-color: var(--primary-color);
+  color: var(--secondary-background-color);
+}
+
+
 </style>

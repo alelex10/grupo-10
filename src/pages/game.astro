@@ -115,6 +115,49 @@ import Notification from '@components/Notification.astro';
         </section>
     </div>
     <!-- Comentarios -->
+     <section class="comments" style="padding: 2rem">
+  <h2>Comentarios</h2>
+  <div id="comment-list"></div>
+
+  <form id="comment-form" style="margin-top: 1rem;">
+    <textarea id="comment-input" rows="3" required placeholder="Dejá tu comentario..." style="width:100%; padding:0.5rem;"></textarea>
+    <button type="submit" style="margin-top:0.5rem;">Enviar</button>
+  </form>
+</section>
+
+<script type="module">
+  const commentList = document.getElementById('comment-list');
+  const form = document.getElementById('comment-form');
+  const input = document.getElementById('comment-input');
+  const gameId = location.pathname; // usa la URL como ID único
+  const user = JSON.parse(localStorage.getItem("loggedUser"));
+
+  const renderComments = () => {
+    const all = JSON.parse(localStorage.getItem("comments") || "{}");
+    const list = all[gameId] || [];
+    commentList.innerHTML = list.map(c => `<p><strong>${c.user}</strong>: ${c.text}</p>`).join("");
+  };
+
+  if (!user) {
+    form.style.display = "none";
+    commentList.insertAdjacentHTML("beforebegin", `<p>Iniciá sesión para dejar un comentario.</p>`);
+  } else {
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      const text = input.value.trim();
+      if (!text) return;
+      const all = JSON.parse(localStorage.getItem("comments") || "{}");
+      all[gameId] = all[gameId] || [];
+      all[gameId].push({ user: user.username, text });
+      localStorage.setItem("comments", JSON.stringify(all));
+      input.value = "";
+      renderComments();
+    });
+  }
+
+  renderComments();
+</script>
+
 </MainLayout>
 
 <script type="module" src="/scripts/game-loader.js"></script>
@@ -533,5 +576,35 @@ import Notification from '@components/Notification.astro';
             max-width: 800px;
         }
     }
+        /*area de comentarios*/
+       
+        #comment-form textarea {
+        width: 100%;
+        padding: 1rem;
+        border: 1px solid var(--accent-color);
+        border-radius: 6px;
+        background-color: var(--secondary-background-color);
+        color: var(--primary-color);
+        font-family: inherit;
+        font-size: 1rem;
+        resize: vertical;
+        }
+
+        #comment-form button {
+        margin-top: 1rem;
+        padding: 0.6rem 1.2rem;
+        background-color: var(--accent-color);
+        color: var(--primary-background-color);
+        font-weight: bold;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        }
+
+        #comment-form button:hover {
+        background-color: var(--primary-color);
+        color: var(--secondary-background-color);
+        }
 
 </style>
