@@ -1,0 +1,35 @@
+---
+import "@/pages/payment.css";
+
+const { ...props } = Astro.props;
+---
+
+<label for={props.id}>{props.name}</label>
+{
+	props.type === "textarea" ? (
+		<textarea class="payment__input" {...props} />
+	) : (
+		<input class="payment__input" {...props} />
+	)
+}
+<style>
+	label {
+		margin-top: 1rem;
+	}
+	.payment__input {
+		background-color: var(--secondary-background-color);
+		color: var(--primary-color);
+		width: 100%;
+		margin: 0 0;
+		padding: 0.7rem;
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-sm);
+		font-size: var(--font-size-base);
+	}
+	textarea.payment__input {
+		/* que no se pueda redimensionar en el eje x */
+		resize: vertical;
+		/* que crezca a la altura de su contenido */
+		min-height: 100px;
+	}
+</style>

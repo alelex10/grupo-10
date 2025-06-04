@@ -1,117 +1,117 @@
 .payment {
-  font-family: var(--font-family-base);
-  background: var(--primary-background-color);
-  color: var(--primary-color);
-  padding: 2rem;
-  display: flex;
-  justify-content: center;
+	font-family: var(--font-family-base);
+	background: var(--primary-background-color);
+	color: var(--primary-color);
+	padding: 2rem;
+	display: flex;
+	justify-content: center;
 }
-  
+
 .payment__container {
-  display: flex;
-  gap: 2rem;
+	display: flex;
+	gap: 2rem;
 }
-  
+
 .payment__box {
-  background: var(--secondary-background-color);
-  padding: 2rem;
-  border-radius: var(--radius-md);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-  width: var(--container-width);
+	background: var(--secondary-background-color);
+	padding: 2rem;
+	border-radius: var(--radius-md);
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+	width: var(--container-width);
 }
-  
+
 .payment__title {
-  margin-bottom: 1rem;
-  color: var(--primary-color);
+	margin-bottom: 1rem;
+	color: var(--primary-color);
 }
-  
+
 .payment__form {
-  display: flex;
-  flex-direction: column;
+	display: flex;
+	flex-direction: column;
 }
-  
+
 .payment__input {
-  background-color: var(--secondary-background-color);
-  color: var(--primary-color);
-  width: 100%;
-  margin: 0.5rem 0;
-  padding: 0.7rem;
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-sm);
-  font-size: var(--font-size-base);
+	background-color: var(--secondary-background-color);
+	color: var(--primary-color);
+	width: 100%;
+	margin: 0.5rem 0;
+	padding: 0.7rem;
+	border: 1px solid red;
+	border-radius: var(--radius-sm);
+	font-size: var(--font-size-base);
 }
-  
+
 .payment__button {
-  width: 100%;
-  padding: 0.8rem;
-  background: var(--button-color);
-  color: var(--primary-background-color);
-  border: none;
-  border-radius: var(--radius-sm);
-  font-weight: bold;
-  margin-top: 1rem;
-  cursor: pointer;
+	width: 100%;
+	padding: 0.8rem;
+	background: var(--button-color);
+	color: var(--primary-background-color);
+	border: none;
+	border-radius: var(--radius-sm);
+	font-weight: bold;
+	margin-top: 1rem;
+	cursor: pointer;
 }
-  
+
 .payment__mensaje {
-  margin-top: 1rem;
-  font-weight: bold;
-  text-align: center;
-  color: var(--secondary-color);
+	margin-top: 1rem;
+	font-weight: bold;
+	text-align: center;
+	color: var(--secondary-color);
 }
 
 .payment__success {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) scale(0.9);
-  width: 400px;
-  height: 300px;
-  background: var(--primary-background-color);
-  color: var(--primary-color);
-  border-radius: var(--radius-md);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 2rem;
-  box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.5s ease, transform 0.4s ease;
-  z-index: 10;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%) scale(0.9);
+	width: 400px;
+	height: 300px;
+	background: var(--primary-background-color);
+	color: var(--primary-color);
+	border-radius: var(--radius-md);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	padding: 2rem;
+	box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+	opacity: 0;
+	pointer-events: none;
+	transition: opacity 0.5s ease, transform 0.4s ease;
+	z-index: 10;
 }
 
 .payment__success.show {
-  opacity: 1;
-  pointer-events: auto;
-  transform: translate(-50%, -50%) scale(1);
+	opacity: 1;
+	pointer-events: auto;
+	transform: translate(-50%, -50%) scale(1);
 }
 
 .payment__success-title {
-  font-size: 1.8rem;
-  margin-bottom: 1rem;
+	font-size: 1.8rem;
+	margin-bottom: 1rem;
 }
 
 .payment__success-text {
-  font-size: 1rem;
-  margin-bottom: 2rem;
+	font-size: 1rem;
+	margin-bottom: 2rem;
 }
 
 .payment__success-button {
-  background: var(--button-color);
-  color: black;
-  padding: 0.8rem 1.5rem;
-  border-radius: var(--radius-md);
-  font-weight: bold;
-  cursor: pointer;
+	background: var(--button-color);
+	color: black;
+	padding: 0.8rem 1.5rem;
+	border-radius: var(--radius-md);
+	font-weight: bold;
+	cursor: pointer;
 }
 
 .payment__total {
-  font-size: 1.2rem;
-  font-weight: bold;
-  margin: 1rem 0;
-  text-align: right;
-  color: var(--accent-color);
+	font-size: 1.2rem;
+	font-weight: bold;
+	margin: 1rem 0;
+	text-align: right;
+	color: var(--accent-color);
 }

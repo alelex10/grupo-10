@@ -11,6 +11,9 @@
     "strict": false,
     "baseUrl": ".",
     "paths": {
+      "@public/*": [
+        "public/*"
+      ],
       "@components/*": [
         "src/components/*"
       ],
