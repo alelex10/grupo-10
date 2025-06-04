@@ -49,6 +49,10 @@ function drawStarsRating(rating: number) {
 			cursor: pointer;
 			transform: scale(1.05);
 		}
+		&:hover .catalog__container__card--img {
+			transition: opacity 0.3s ease-in-out;
+			opacity: 0.7;
+		}
 		&:hover .catalog__container__card--body {
 			height: 50%;
 			display: block;

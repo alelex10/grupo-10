@@ -2,10 +2,11 @@
 import CardImg from "@components/Catalog/CardImg.astro";
 import { getGames } from "../../../api/rawg";
 import Button from "../../../components/Button.astro";
+import AnimationScrollCard from "../../../components/AnimationScrollCard.astro";
 ---
 
 <section class="catalog">
-	<h1 class="catalog__title">catalog</h1>
+	<h1 class="catalog__title">Catalogo</h1>
 	<span class="catalog__container">
 		{
 			async () => {
@@ -17,14 +18,16 @@ import Button from "../../../components/Button.astro";
 				return getGames(`page=${page}`).then((games) => {
 					return games.results.map((game) => {
 						return (
-							<CardImg
-								slug={game.slug}
-								src={getLowResImage(game.background_image)}
-								alt={game.name}
-								title={game.name}
-								rating={game.rating}
-								genres={game.genres}
-							/>
+							<AnimationScrollCard>
+								<CardImg
+									slug={game.slug}
+									src={getLowResImage(game.background_image)}
+									alt={game.name}
+									title={game.name}
+									rating={game.rating}
+									genres={game.genres}
+								/>
+							</AnimationScrollCard>
 						);
 					});
 				});
@@ -114,8 +117,4 @@ import Button from "../../../components/Button.astro";
 
 	$btnPrev?.addEventListener("click", anteriorPag);
 	$btnNext?.addEventListener("click", siguientePag);
-
-	// editCatalog(currentPage);
-
-	// ------------------------------------
 </script>

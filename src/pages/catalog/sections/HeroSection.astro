@@ -3,7 +3,7 @@ import Carousel from "@components/Catalog/Carousel.astro";
 ---
 
 <section class="hero">
-	<h1 class="hero__title">Mas Populares</h1>
+	<h1 class="hero__title">Lo mas Nuevo</h1>
 	<Carousel />
 </section>
 
@@ -16,7 +16,11 @@ import Carousel from "@components/Catalog/Carousel.astro";
 		position: absolute;
 		top: 0;
 		left: 50%;
+		top: 30%;
+		font-size: 4rem;
 		transform: translateX(-50%);
 		z-index: 1;
+		color: var(--accent-color);
+		text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 	}
 </style>
