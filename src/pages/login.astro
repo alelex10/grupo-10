@@ -1,41 +1,47 @@
 ---
+import MainLayout from '../layouts/MainLayout.astro';
+import Notification from '@components/Notification.astro';
 ---
-<h1>Login</h1>
-<form id="login-form">
-  <label for="username">Nombre de usuario:</label>
-  <input type="text" id="username" required />
-  <button type="submit">Ingresar</button>
-</form>
+<MainLayout title="Login">
+  <Notification />
 
-<p id="welcome-message"></p>
-<button id="logout-btn" style="display:none">Cerrar sesión</button>
+  <section class="login" style="padding: 2rem;">
+    <h1>Login</h1>
+    <form id="login-form">
+      <label for="username">Nombre de usuario:</label>
+      <input type="text" id="username" required />
+      <button type="submit">Ingresar</button>
+    </form>
 
-<script type="module">
-  import { auth } from '/scripts/autenticacion.js';
+    <p id="welcome-message"></p>
+    <button id="logout-btn" style="display:none">Cerrar sesión</button>
+  </section>
 
-  const form = document.getElementById('login-form');
-  const welcome = document.getElementById('welcome-message');
-  const logoutBtn = document.getElementById('logout-btn');
+  <script type="module">
+    import { auth } from '/scripts/autenticacion.js';
 
-  const user = auth.getUser();
-  if (user) {
-    welcome.textContent = `Bienvenido nuevamente, ${user.username}!`;
-    form.style.display = 'none';
-    logoutBtn.style.display = 'inline';
-  }
+    const form = document.getElementById('login-form');
+    const welcome = document.getElementById('welcome-message');
+    const logoutBtn = document.getElementById('logout-btn');
+    const user = auth.getUser();
 
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const username = document.getElementById('username').value.trim();
-    if (!username) return alert('Ingrese un nombre válido');
+    if (user) {
+      welcome.textContent = `Bienvenido nuevamente, ${user.username}!`;
+      form.style.display = 'none';
+      logoutBtn.style.display = 'inline';
+    }
 
-   auth.login({ username });
-    window.location.href = "/";
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const username = document.getElementById('username').value.trim();
+      if (!username) return alert('Ingrese un nombre válido');
+      auth.login({ username });
+      window.location.href = "/";
+    });
 
-  });
-
-  logoutBtn.addEventListener('click', () => {
-    auth.logout();
-    location.reload();
-  });
-</script>
+    logoutBtn.addEventListener('click', () => {
+      auth.logout();
+      location.reload();
+    });
+  </script>
+</MainLayout>
