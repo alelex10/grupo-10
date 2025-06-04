@@ -3,41 +3,43 @@
 ---
 
 <div id="notification" class="notification hidden">
-    <p class="notification__content"></p>
+	<p class="notification__content">
+		<slot />
+	</p>
 </div>
 
 <style>
-    .notification {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        display: flex;
-        align-items: start;
-        justify-content: center;
-        z-index: 3;
-    }
+	.notification {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		display: flex;
+		align-items: start;
+		justify-content: center;
+		z-index: 3;
+	}
 
-    .notification__content {
-        background: var(--accent-color);
-        color: var(--primary-color);
-        font-weight: bold;
-        margin-top: 3rem;
-        padding: 1rem;
-        border-radius: 4px;
-        width: 250px;
-        text-align: center;
-        box-shadow: 0px 0px 100px 40px #00000066;
-    }
+	.notification__content {
+		background: var(--accent-color);
+		color: var(--primary-color);
+		font-weight: bold;
+		margin-top: 3rem;
+		padding: 1rem;
+		border-radius: 4px;
+		width: 250px;
+		text-align: center;
+		box-shadow: 0px 0px 100px 40px #00000066;
+	}
 
-    .hidden {
-        display: none;
-    }
+	.hidden {
+		display: none;
+	}
 
-    @media (min-width: 768px) {
-        .notification__content {
-            width: 500px;
-        }
-    }
+	@media (min-width: 768px) {
+		.notification__content {
+			width: 500px;
+		}
+	}
 </style>
