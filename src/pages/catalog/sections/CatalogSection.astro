@@ -63,6 +63,27 @@ import AnimationScrollCard from "../../../components/AnimationScrollCard.astro";
 		gap: 1rem;
 		margin: 1rem 0 5rem 0;
 	}
+
+	@media (max-width: 481px) {
+		.catalog {
+			width: 95%;
+		}
+		.catalog__container {
+			grid-template-columns: repeat(2, 1fr);
+			grid-template-rows: repeat(8, 1fr);
+		}
+	}
+	@media (min-width: 768px) {
+		.catalog {
+			width: 95%;
+		}
+	}
+
+	@media (min-width: 1024px) {
+		.catalog {
+			width: 85%;
+		}
+	}
 </style>
 
 <script>
