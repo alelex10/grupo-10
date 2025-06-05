@@ -1,8 +1,8 @@
-## Cómo trabajamos como equipo
+# Cómo trabajamos como equipo
 
 Este proyecto fue desarrollado por un equipo de 4 personas. Nos organizamos de forma colaborativa para asegurar una comunicación fluida y una ejecución eficiente. A continuación, detallamos cómo fue nuestra dinámica de trabajo:
 
-#### Organización del equipo
+### Organización del equipo
 
 **Planificación inicial:**
 Al comenzar el proyecto, realizamos reuniones para definir los objetivos, establecer las funcionalidades clave y distribuir las tareas por páginas, para que cada uno pueda aplicar HTML, CSS y JS.
@@ -14,13 +14,13 @@ Al comenzar el proyecto, realizamos reuniones para definir los objetivos, establ
 - **Alejandro:** Se encargó de la página de _home_ y _contact_.
 - **Lucas:** Se encargó de la página de _login_ y _comentarios_.
 
-#### Metodología de trabajo
+### Metodología de trabajo
 
 - Utilizamos **GitHub** como herramienta principal de control de versiones.
 - Cada integrante trabajó en una **rama independiente** y luego propuso cambios mediante _pull requests_.
 - La comunicación del equipo se llevó a cabo a través de **WhatsApp o Discord**, permitiendo coordinar avances y resolver bloqueos de forma ágil.
 
-#### Revisión y colaboración
+### Revisión y colaboración
 
 - Todo cambio fue revisado constantemente por los miembros del equipo.
 - Si había conflictos, nos reuníamos y lo solucionábamos.
