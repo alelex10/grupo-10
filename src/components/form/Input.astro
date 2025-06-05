@@ -4,16 +4,19 @@ import "@/pages/payment.css";
 const { ...props } = Astro.props;
 ---
 
-<label for={props.id}>{props.name}</label>
-{
-	props.type === "textarea" ? (
-		<textarea class="payment__input" {...props} />
-	) : (
-		<input class="payment__input" {...props} />
-	)
-}
+<span class="input__container">
+	<label for={props.id}>{props.name}</label>
+	{
+		props.type === "textarea" ? (
+			<textarea class="payment__input" {...props} />
+		) : (
+			<input class="payment__input" {...props} />
+		)
+	}
+	<slot />
+</span>
 <style>
-	label {
+	.input__container {
 		margin-top: 1rem;
 	}
 	.payment__input {
