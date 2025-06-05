@@ -101,7 +101,7 @@ input[type="text"]::placeholder {
 
 @media (min-width: 768px) {
     .search-container {
-        width: var(--container-width);
+        width: calc(var(--container-width) - 150px);
     }
 
     input[type="text"] {
@@ -110,6 +110,12 @@ input[type="text"]::placeholder {
 
     .search-container__results {
         left: auto;
+        width: var(--container-width);
+    }
+}
+
+@media (min-width: 1024px) {
+    .search-container {
         width: var(--container-width);
     }
 }

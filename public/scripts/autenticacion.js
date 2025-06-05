@@ -8,6 +8,7 @@ export const auth = {
  
     logout() {
       localStorage.removeItem("loggedUser");
+      localStorage.removeItem("wishlist");
     },
   
   

@@ -1,4 +1,5 @@
 import { showNotification } from './notification.js';
+import { auth } from './autenticacion.js';
 
 function getWishlist() {
     return JSON.parse(localStorage.getItem('wishlist')) || [];
@@ -33,6 +34,11 @@ export function setupWishlistButton(game, buttonEl, notificationEl) {
     }
 
     buttonEl.addEventListener('click', () => {
+        if (!auth.isLoggedIn()) {
+            showNotification(`Inicia sesión para agregar a tu wishlist`, notificationEl);
+            return;
+        }
+
         const gameData = {
             id: game.id,
             slug: game.slug,

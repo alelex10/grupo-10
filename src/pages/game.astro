@@ -30,22 +30,7 @@ import Notification from '@components/Notification.astro';
         </section>
         <section class="visuals">
             <h2 class="visuals__title">Visuales</h2>
-            <div class="visuals__gallery">
-                <picture class="visuals__item visuals__item--first">
-                    <img id="visuals-cover" src="#" alt="Game Cover First">
-                </picture>
-                <div class="visuals__row">
-                    <picture class="visuals__item ">
-                        <img src="#" alt="Game Cover">
-                    </picture>
-                    <picture class="visuals__item">
-                        <img src="#" alt="Game Cover">
-                    </picture>
-                    <picture class="visuals__item">
-                        <img src="#" alt="Game Cover">
-                    </picture>
-                </div>
-            </div>
+            <div class="visuals__gallery" id="visuals-gallery"></div>
         </section>
         <section class="about">
             <h2 class="about__title">Acerca de</h2>
@@ -113,51 +98,50 @@ import Notification from '@components/Notification.astro';
                 </div>
             </div>
         </section>
+        <!-- Comentarios -->
+        <section class="comments" style="padding: 2rem">
+            <h2>Comentarios</h2>
+            <div id="comment-list"></div>
+
+            <form id="comment-form" style="margin-top: 1rem;">
+                <textarea id="comment-input" rows="3" required placeholder="Dejá tu comentario..." style="width:100%; padding:0.5rem;"></textarea>
+                <button type="submit" style="margin-top:0.5rem;">Enviar</button>
+            </form>
+        </section>
     </div>
-    <!-- Comentarios -->
-     <section class="comments" style="padding: 2rem">
-  <h2>Comentarios</h2>
-  <div id="comment-list"></div>
 
-  <form id="comment-form" style="margin-top: 1rem;">
-    <textarea id="comment-input" rows="3" required placeholder="Dejá tu comentario..." style="width:100%; padding:0.5rem;"></textarea>
-    <button type="submit" style="margin-top:0.5rem;">Enviar</button>
-  </form>
-</section>
+    <script type="module">
+        const commentList = document.getElementById('comment-list');
+        const form = document.getElementById('comment-form');
+        const input = document.getElementById('comment-input');
+        const gameId = location.pathname; // usa la URL como ID único
+        const user = JSON.parse(localStorage.getItem("loggedUser"));
 
-<script type="module">
-  const commentList = document.getElementById('comment-list');
-  const form = document.getElementById('comment-form');
-  const input = document.getElementById('comment-input');
-  const gameId = location.pathname; // usa la URL como ID único
-  const user = JSON.parse(localStorage.getItem("loggedUser"));
+        const renderComments = () => {
+            const all = JSON.parse(localStorage.getItem("comments") || "{}");
+            const list = all[gameId] || [];
+            commentList.innerHTML = list.map(c => `<p><strong>${c.user}</strong>: ${c.text}</p>`).join("");
+        };
 
-  const renderComments = () => {
-    const all = JSON.parse(localStorage.getItem("comments") || "{}");
-    const list = all[gameId] || [];
-    commentList.innerHTML = list.map(c => `<p><strong>${c.user}</strong>: ${c.text}</p>`).join("");
-  };
+        if (!user) {
+            form.style.display = "none";
+            commentList.insertAdjacentHTML("beforebegin", `<p>Iniciá sesión para dejar un comentario.</p>`);
+        } else {
+            form.addEventListener('submit', e => {
+            e.preventDefault();
+            const text = input.value.trim();
+            if (!text) return;
+            const all = JSON.parse(localStorage.getItem("comments") || "{}");
+            all[gameId] = all[gameId] || [];
+            all[gameId].push({ user: user.username, text });
+            localStorage.setItem("comments", JSON.stringify(all));
+            input.value = "";
+            renderComments();
+            });
+        }
 
-  if (!user) {
-    form.style.display = "none";
-    commentList.insertAdjacentHTML("beforebegin", `<p>Iniciá sesión para dejar un comentario.</p>`);
-  } else {
-    form.addEventListener('submit', e => {
-      e.preventDefault();
-      const text = input.value.trim();
-      if (!text) return;
-      const all = JSON.parse(localStorage.getItem("comments") || "{}");
-      all[gameId] = all[gameId] || [];
-      all[gameId].push({ user: user.username, text });
-      localStorage.setItem("comments", JSON.stringify(all));
-      input.value = "";
-      renderComments();
-    });
-  }
-
-  renderComments();
-</script>
-
+        renderComments();
+    </script>
 </MainLayout>
 
 <script type="module" src="/scripts/game-loader.js"></script>
@@ -273,21 +257,32 @@ import Notification from '@components/Notification.astro';
 
     .visuals__gallery {
         display: flex;
-        flex-direction: column;
+        overflow-x: auto;
         gap: 1rem;
+
+        -ms-overflow-style: none;
+        scrollbar-width: none;
     }
 
-    .visuals__row {
+    .visuals__gallery::-webkit-scrollbar {
+        display: none;
+    }
+
+    /*.visuals__row {
         display: flex;
         gap: 1rem;
-    }
+    }*/
 
     .visuals__item {
-        flex-basis: 100%;
+        border-radius: 7px;
+        height: auto;
+
+        flex: 0 0 auto;
     }
 
     .visuals__item img {
         width: 100%;
+        height: 130px;
         border-radius: 6px;
     }
 
@@ -459,6 +454,10 @@ import Notification from '@components/Notification.astro';
             font-size: 1.8rem;
         }
 
+        .visuals__item img {
+            height: 150px;
+        }
+
         /* ==== ABOUT ==== */
         .about__title {
             font-size: 1.8rem;
@@ -504,7 +503,7 @@ import Notification from '@components/Notification.astro';
         .game {
             /*top: -9rem;
             margin-bottom: -9rem;*/
-            /*width: 80vw;*/
+            width: 80vw;
             margin-left: auto;
             margin-right: auto;
         }
@@ -521,12 +520,17 @@ import Notification from '@components/Notification.astro';
 
         .game__cover img {
             height: 350px;
+            object-fit: cover;
+            min-width: 500px;
+            max-height: 350px;
         }
 
         .game__details {
             backdrop-filter: blur(60px);
             padding: 2rem;
             border-radius: 15px;
+            max-width: 400px;
+            min-width: 350px;
         }
 
         .game__button--wishlist img {
@@ -535,13 +539,8 @@ import Notification from '@components/Notification.astro';
         }
 
         /* ==== VISUALS ==== */
-        .visuals__gallery {
-            flex-direction: row;
-            justify-content: center;
-        }
-
-        .visuals__item--first img {
-            height: 100%;
+        .visuals__item img {
+            height: 200px;
         }
 
         /* ==== ABOUT ==== */
@@ -553,7 +552,7 @@ import Notification from '@components/Notification.astro';
         }
 
         .about__description, .about__info {
-            max-width: 500px;
+            flex: 1 1 45%;
         }
 
         /* ==== REQUIREMENTS ==== */
@@ -571,14 +570,10 @@ import Notification from '@components/Notification.astro';
 
     }
 
-    @media (min-width: 1200px) {
-        .about__description, .about__info {
-            max-width: 800px;
-        }
-    }
-        /*area de comentarios*/
+    
+    /* ==== COMMENTS ==== */
        
-        #comment-form textarea {
+    #comment-form textarea {
         width: 100%;
         padding: 1rem;
         border: 1px solid var(--accent-color);
@@ -588,9 +583,9 @@ import Notification from '@components/Notification.astro';
         font-family: inherit;
         font-size: 1rem;
         resize: vertical;
-        }
+    }
 
-        #comment-form button {
+    #comment-form button {
         margin-top: 1rem;
         padding: 0.6rem 1.2rem;
         background-color: var(--accent-color);
@@ -600,11 +595,11 @@ import Notification from '@components/Notification.astro';
         border-radius: 6px;
         cursor: pointer;
         transition: background-color 0.3s ease;
-        }
+    }
 
-        #comment-form button:hover {
+    #comment-form button:hover {
         background-color: var(--primary-color);
         color: var(--secondary-background-color);
-        }
+    }
 
 </style>
