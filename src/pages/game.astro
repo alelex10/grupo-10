@@ -3,7 +3,7 @@ import MainLayout from '../layouts/MainLayout.astro';
 import Notification from '@components/Notification.astro';
 ---
 
-<MainLayout title="Game Details">
+<MainLayout title="... - GameVault">
     <Notification />
     <div id="loader" class="loader isLoading">
         Cargando información del juego...
@@ -531,6 +531,10 @@ import Notification from '@components/Notification.astro';
             border-radius: 15px;
             max-width: 400px;
             min-width: 350px;
+        }
+
+        .game__title {
+            color: var(--primary-color)
         }
 
         .game__button--wishlist img {

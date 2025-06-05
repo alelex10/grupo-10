@@ -22,7 +22,7 @@ try {
     document.querySelector('#banner').src = game.background_image_additional;
     document.querySelector('#game-cover').src = game.background_image;
     document.querySelector('#game-title').textContent = game.name;
-    document.title = `${game.name} - Steam`;
+    document.title = `${game.name} - GameVault`;
     document.querySelector('#game-price').innerHTML = `$${(Math.random() * 100).toFixed(2)}`;
 
     // Visuals
