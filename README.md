@@ -1,47 +1,123 @@
-# Astro Starter Kit: Minimal
 
-```sh
-pnpm create astro@latest -- --template minimal
+# GameVault
+
+El proyecto consiste en una aplicación web que permite a los usuarios buscar y comprar videojuegos y DLCs.
+
+La aplicación se divide en varias secciones:
+
+- Home: Esta sección es la página principal de la aplicación y muestra una lista de los ultimos juegos y los más populares.
+
+- Inicio de Sesión: Esta sección permite a los usuarios iniciar sesión y acceder a la Wishlist y Comentarios.
+
+- Buscador de Juegos: Esta sección permite a los usuarios buscar juegos.
+
+- Compra de Juegos: Esta sección permite a los usuarios comprar juegos y DLCs guardados en la Wishlist, ademas de una sección de comentarios.
+
+- Página de Juegos: Esta sección muestra información detallada sobre cada juego y DLC..
+
+- Wishlist: Esta sección permite a los usuarios agregar juegos y DLCs a su lista de deseos.
+
+- Contacto: Esta sección permite a los usuarios enviar sus comentarios y preguntas a través de un formulario.
+
+
+## Installation
+
+Para instalar el proyecto, primero debemos clonarlo en nuestro equipo:
+
+```bash
+git clone https://github.com/alelex10/grupo-10.git
 ```
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/minimal)
-[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/minimal)
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/withastro/astro?devcontainer_path=.devcontainer/minimal/devcontainer.json)
+Una vez clonado, debemos instalar las dependencias del proyecto:
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
-
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
+```bash
+pnpm install
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+Una vez instaladas las dependencias, podemos iniciar el servidor de desarrollo:
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+```bash
+pnpm dev
+```
 
-Any static assets, like images, can be placed in the `public/` directory.
+Esto iniciará un servidor de desarrollo en el puerto 4321, y nos mostrará la página de inicio del proyecto.
 
-## 🧞 Commands
+Si deseamos construir el proyecto para producción, podemos ejecutar:
 
-All commands are run from the root of the project, from a terminal:
+```bash
+pnpm build
+```
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `pnpm install`             | Installs dependencies                            |
-| `pnpm dev`             | Starts local dev server at `localhost:4321`      |
-| `pnpm build`           | Build your production site to `./dist/`          |
-| `pnpm preview`         | Preview your build locally, before deploying     |
-| `pnpm astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `pnpm astro -- --help` | Get help using the Astro CLI                     |
+Esto generará un directorio `dist` con el código compilado y optimizado para producción. 
+## API Reference
 
-## 👀 Want to learn more?
+#### Get all games
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+```http
+  GET https://api.rawg.io/api/games
+```
+
+| Parameter | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `api_key` | `string` | **Required**. Your API key |
+| `ordering` | `string` | **Optional**. Determines result sort order |
+| `dates` | `string` | **Optional**. Filters results by date range. Format: `YYYY-MM-DD,YYYY-MM-DD`.|
+
+#### Get game
+
+```http
+  GET https://api.rawg.io/api/games/${slug}
+```
+
+| Parameter | Type     | Description                         |
+| :-------- | :------- | :---------------------------------- |
+| `api_key` | `string` | **Required**. Your API key |
+| `slug`    | `string` | **Required**. Slug of game to fetch |
+
+#### Get game's screenshots
+
+```http
+  GET https://api.rawg.io/api/games/${id}/screenshots
+```
+
+| Parameter | Type     | Description                       |
+| :-------- | :------- | :-------------------------------- |
+| `id`      | `string` | **Required**. Id of game to fetch |
+| `api_key` | `string` | **Required**. Your API key |
+
+#### Get game's additions
+
+```http
+  GET https://api.rawg.io/api/games/${id}/additions
+```
+
+| Parameter | Type     | Description                       |
+| :-------- | :------- | :-------------------------------- |
+| `id`      | `string` | **Required**. Id of game to fetch |
+| `api_key` | `string` | **Required**. Your API key        |
+
+#### Get searched games
+
+```http
+  GET https://api.rawg.io/api/games
+```
+
+|  Parameter  | Type     | Description                         |
+| :---------- | :------- | :---------------------------------- |
+|   `api_key` | `string` | **Required**. Your API key          |
+|   `search`  | `string` | **Required**. Name of game to fetch |
+| `page_size` | `string` | **Required**. Number of results to return per page. Example: `20`.|
+
+
+## Authors
+
+- [@alelex10](https://www.github.com/alelex10)
+- [@fwmc-dev](https://www.github.com/fwmc-dev)
+- [@gomosit0](https://www.github.com/gomosit0)
+- [@yoelcolque](https://www.github.com/yoelcolque)
+
+
+## Demo
+
+[GameVault](https://grupo-10.vercel.app/)
+

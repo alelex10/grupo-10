@@ -1,24 +1,28 @@
 ---
 import MainLayout from '../layouts/MainLayout.astro';
 import Notification from '@components/Notification.astro';
+import Form from '@components/form/Form.astro';
+import Input from '@components/form/Input.astro';
+import Button from '@components/Button.astro';
 ---
 <MainLayout title="Login">
   <Notification />
 
-  <section class="login" style="padding: 2rem;">
-    <h1>Login</h1>
-    <form id="login-form">
-      <label for="username">Nombre de usuario:</label>
-      <input type="text" id="username" required />
-      <button type="submit">Ingresar</button>
-    </form>
+  <section class="login">
+		<div class="login__overlay"></div>
+		<h1 class="login__title">Login</h1>
+		<Form className="login__form" id="login-form" title="Formulario de Inicio de Sesión">
+			<Input name="Nombre de Usuario" type="text" id="username" placeholder="Ingrese su nombre de usuario" />
+			<Button class="login__form--button">Ingresar</Button>
+		</Form>
 
     <p id="welcome-message"></p>
-    <button id="logout-btn" style="display:none">Cerrar sesión</button>
-  </section>
+    <Button id="logout-btn" style="display:none">Cerrar sesión</Button>
+	</section>
 
   <script type="module">
     import { auth } from '/scripts/autenticacion.js';
+    import { showNotification } from '/scripts/notification.js';
 
     const form = document.getElementById('login-form');
     const welcome = document.getElementById('welcome-message');
@@ -34,7 +38,7 @@ import Notification from '@components/Notification.astro';
     form.addEventListener('submit', (e) => {
       e.preventDefault();
       const username = document.getElementById('username').value.trim();
-      if (!username) return alert('Ingrese un nombre válido');
+      if (!username) return showNotification('Ingrese un nombre de usuario válido', document.getElementById('notification'));
       auth.login({ username });
       window.location.href = "/";
     });
@@ -45,3 +49,50 @@ import Notification from '@components/Notification.astro';
     });
   </script>
 </MainLayout>
+
+<style>
+  .login__form {
+		align-self: center;
+    width: 300px;
+	}
+	.login {
+		/*align-content: center;*/
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+		position: relative;
+		height: calc(100vh - var(--navbar-height));
+	}
+	.login__title, #welcome-message {
+		text-align: center;
+		text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+	}
+	.login__overlay {
+		top: 0;
+		z-index: -1;
+		position: absolute;
+		opacity: 0.4;
+		width: 100%;
+		height: 100%;
+		background-image: url("/assets/img/contact/background-contact.webp");
+	}
+	.login__form--button {
+		margin-top: 1rem;
+	}
+
+  #welcome-message {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+
+  #logout-btn {
+    align-self: center;
+    margin-top: 5rem;
+  }
+
+  @media (min-width: 768px) {
+    .login__form {
+      width: auto;
+    }
+  }
+</style>
