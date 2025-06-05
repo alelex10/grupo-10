@@ -1,4 +1,5 @@
 import { setupWishlistButton } from './wishlist.js';
+//import { auth } from './autenticacion.js';
 //import { showNotification } from './notification.js';
 
 const apiKey = 'a707fb0dd76f4b69a37f1cb57a7ab2f4';
@@ -27,20 +28,24 @@ try {
     // Visuals
     const visualsRes = await fetch(`https://api.rawg.io/api/games/${game.id}/screenshots?key=${apiKey}`);
     const screenshots = (await visualsRes.json()).results;
+    const visualsGallery = document.querySelector('#visuals-gallery');
 
     if (screenshots.length > 0) {
-        document.querySelector('#visuals-cover').src = screenshots[0].image;
-        const rowItems = document.querySelectorAll('.visuals__row .visuals__item');
-
-        rowItems.forEach((item, i) => {
-            const screenshot = screenshots[i + 1];
-            if (screenshot) {
-                const img = item.querySelector('img');
-                if (img) img.src = screenshot.image;
-            }
+        visualsGallery.innerHTML = '';
+        screenshots.forEach(screenshot => {
+            /*
+            <picture class="visuals__item">
+                    <img src="#" alt="Game Cover">
+                </picture>
+            */
+            const item = document.createElement('picture');
+            item.setAttribute('data-astro-cid-gpfhifiw', '');
+            item.classList.add('visuals__item');
+            item.innerHTML = `<img src="${screenshot.image}" alt="Game Cover" data-astro-cid-gpfhifiw>`;
+            visualsGallery.appendChild(item);
         });
     } else {
-        document.querySelector('.visuals__row')?.remove();
+        visualsGallery.innerHTML = `<p class="about__description" data-astro-cid-gpfhifiw>No se han encontrado screenshots</p>`;
     }
 
     // Information
