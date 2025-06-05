@@ -11,9 +11,15 @@ import MainLayout from "../layouts/MainLayout.astro";
 		<div class="contact__overlay"></div>
 		<h1 class="contact__title">Contactanos</h1>
 		<Form className="contact__form" title="Formulario de contacto">
-			<Input name="Nombre" type="text" id="name" placeholder="Ingrese su nombre" />
-			<Input name="Correo" type="email" id="email" placeholder="Ingrese su correo" />
-			<Input name="Mensaje" type="textarea" id="message" placeholder="Escriba su mensaje" />
+			<Input name="name" type="text" id="name" placeholder="Ingrese su nombre">
+				<p id="input__message--name" class="input__message--error"></p>
+			</Input>
+			<Input name="email" type="email" id="email" placeholder="Ingrese su correo" validate="false">
+				<p id="input__message--email" class="input__message--error"></p>
+			</Input>
+			<Input name="message" type="textarea" id="message" placeholder="Escriba su mensaje">
+				<p id="input__message--message" class="input__message--error"></p>
+			</Input>
 			<Button class="contact__form--button">Enviar</Button>
 		</Form>
 		<!-- <img src={bgContact.src} alt="" /> -->
@@ -40,19 +46,56 @@ import MainLayout from "../layouts/MainLayout.astro";
 		opacity: 0.4;
 		width: 100%;
 		height: 100%;
-		background-image: url("public/assets/img/contact/background-contact.webp");
+		background-image: url("/assets/img/contact/background-contact.webp");
 	}
 	.contact__form--button {
 		margin-top: 1rem;
+	}
+	.input__message--error {
+		color: red;
+		font-size: 0.9rem;
+	}
+	@media (max-width: 481px) {
+		.contact__title {
+			font-size: 3rem;
+		}
+		.contact__form {
+			width: 100%;
+		}
 	}
 </style>
 <script>
 	const $form = document.querySelector(".contact__form");
 
-	function validateForm() {}
+	const $name = document.getElementById("name") as HTMLInputElement;
+	const $email = document.getElementById("email") as HTMLInputElement;
+	const $message = document.getElementById("message") as HTMLInputElement;
+
+	function validateFormData(data) {
+		const name = data.get("name");
+		const $messageErrorName = document.querySelector("#input__message--name");
+		const email = data.get("email");
+		const $messageErrorEmail = document.querySelector("#input__message--email");
+		const message = data.get("message");
+		const $messageErrorMessage = document.querySelector("#input__message--message");
+
+		name.length < 1 && ($messageErrorName.textContent = "Ingrese su nombre"),
+			name.length > 1 && ($messageErrorName.textContent = "");
+
+		email.length < 1 && ($messageErrorEmail.textContent = "Ingrese su correo"),
+			email.length > 1 && ($messageErrorEmail.textContent = "");
+
+		message.length < 1 && ($messageErrorMessage.textContent = "Ingrese su mensaje"),
+			message.length < 10 && ($messageErrorMessage.textContent = "El mensaje debe tener al menos 10 caracteres");
+
+		message.length > 1 && ($messageErrorMessage.textContent = "");
+	}
 
 	$form.addEventListener("submit", (e) => {
 		e.preventDefault();
-		validateForm();
+		const $formContacto = e.target as HTMLFormElement;
+		const data = new FormData($formContacto);
+
+		validateFormData(data);
 	});
 </script>
