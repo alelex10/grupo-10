@@ -1,0 +1,14 @@
+---
+import "@/pages/payment.css";
+interface Props {
+	className?: string;
+	title?: string;
+	id?: string;
+}
+const { className, title, ...props }: Props = Astro.props;
+---
+
+<form class:list={["payment__form payment__box", className]} {...props}>
+	<h2 class="payment__title">{title}</h2>
+	<slot />
+</form>

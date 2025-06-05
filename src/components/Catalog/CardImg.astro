@@ -5,9 +5,10 @@ interface Props {
 	alt: string;
 	title: string;
 	rating: number;
+	slug: string;
 	genres: Genres[];
 }
-const { src, alt, title, rating, genres } = Astro.props;
+const { src, alt, title, rating, genres, slug } = Astro.props;
 function drawStarsRating(rating: number) {
 	let stars = "";
 	for (let i = 0; i < rating; i++) {
@@ -18,14 +19,16 @@ function drawStarsRating(rating: number) {
 ---
 
 <div class="catalog__container__card">
-	<img class="catalog__container__card--img" src={src} alt={alt} />
-	<div class="catalog__container__card--body">
-		<div class="body__title__rating">
-			<span class="card__rating">{drawStarsRating(rating)}</span>
-			<h4>{title}</h4>
-		</div>
-		<div>{genres.map((g) => g.name).join(", ")}</div>
-	</div>
+	<a class="catalog__container__card--link" href=`/game?title=${slug}`
+		><img class="catalog__container__card--img" src={src} alt={alt} />
+		<div class="catalog__container__card--body">
+			<div class="body__title__rating">
+				<span class="card__rating">{drawStarsRating(rating)}</span>
+				<h4>{title}</h4>
+			</div>
+			<div>{genres.map((g) => g.name).join(", ")}</div>
+		</div></a
+	>
 </div>
 <style>
 	h4 {
@@ -45,6 +48,10 @@ function drawStarsRating(rating: number) {
 		&:hover {
 			cursor: pointer;
 			transform: scale(1.05);
+		}
+		&:hover .catalog__container__card--img {
+			transition: opacity 0.3s ease-in-out;
+			opacity: 0.7;
 		}
 		&:hover .catalog__container__card--body {
 			height: 50%;

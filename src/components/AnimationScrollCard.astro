@@ -1,0 +1,50 @@
+<div class="animation__card">
+	<slot />
+</div>
+
+<style>
+	.container {
+		columns: 2;
+	}
+	img {
+		margin-bottom: 1rem;
+	}
+	/* Estilo inicial */
+	.animation__card {
+		opacity: 0;
+		transform: translateY(100px);
+		transition:
+			opacity 0.5s ease-in-out,
+			transform 0.5s ease-in-out;
+	}
+	/* Estilo cuando es visible */
+	.animation__card.is-visible {
+		transform: translateY(0);
+		opacity: 1;
+	}
+</style>
+<script>
+	// Crear un observador
+	const observer = new IntersectionObserver((entries, observer) => {
+		entries.forEach((entry) => {
+			// entry.isIntersecting es true si el elemento está en el root (o cruza el umbral)
+			if (entry.isIntersecting) {
+				entry.target.classList.add("is-visible");
+				console.log("El elemento", entry.target, "está visible!");
+				// Opcionalmente, dejar de observar si solo necesitas saberlo una vez
+				observer.unobserve(entry.target); // no logre hacer que funcione
+			} else {
+				entry.target.classList.remove("is-visible");
+				console.log("El elemento", entry.target, "ya no está visible.");
+			}
+		});
+	});
+
+	// Seleccionar todos los elementos que queremos observar
+	const miElemento = document.querySelectorAll(".animation__card");
+
+	// Empezar a observar cada elemento
+	miElemento.forEach((elemento) => {
+		observer.observe(elemento);
+	});
+</script>

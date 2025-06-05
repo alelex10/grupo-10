@@ -11,12 +11,42 @@
 		<ul class="navbar__nav">
 			<slot />
 			<!-- <li class="navbar__item"><a class="navbar__link" href="/contact">Contacto</a></li> -->
-			<li class="nav__item"><a class="item__link" href="/wishlist">Wishlist</a></li>
+			<li class="nav__item"><a class="item item-link" href="/wishlist">Wishlist</a></li>
+			<li class="nav__item" id="auth-button"></li>
 		</ul>
 	</nav>
+		<script type="module">
+	import { auth } from '/scripts/autenticacion.js';
+
+	const wrapper = document.getElementById("auth-button");
+	const user = auth.getUser();
+
+	if (wrapper) {
+		if (user) {
+		const btn = document.createElement("button");
+		btn.classList.add("item");
+		btn.classList.add("item-login");
+		btn.textContent = "Logout";
+		btn.onclick = () => {
+			btn.style.opacity ="0"
+			auth.logout();
+			location.reload();
+		};
+		wrapper.appendChild(btn);
+		} else {
+		const link = document.createElement("a");
+		link.classList.add("item");
+		link.classList.add("item-login");
+		link.href = "/login";
+		link.textContent = "Login";
+		wrapper.appendChild(link);
+		}
+	}
+	</script>
+
 </header>
 
-<style>
+<style is:global>
 	/* ==== HEADER ==== */
 	.site-header {
 		background-color: oklch(17.91% 0.005 145.36);
@@ -55,19 +85,34 @@
 		width: 100%;
 	}
 
-	.nav__item {
-		background-color: var(--secondary-background-color);
+	.item {
 		padding: 0.5rem;
 		border-radius: var(--radius-sm);
-	}
 
-	.item__link {
-		color: var(--secondary-color);
 		text-decoration: none;
 	}
 
-	.item__link:hover {
+	.item:hover {
 		color: var(--primary-color);
+	}
+
+	.item-link {
+		color: var(--secondary-color);
+		background-color: var(--secondary-background-color);
+	}
+
+	.item-login {
+		color: var(--primary-background-color);
+		background-color: var(--accent-color);
+		border: none;
+		font-weight: bold;
+		cursor: pointer;
+		transition: background-color 0.3s ease;
+	}
+
+	.item-login:hover {
+		background-color: var(--primary-color);
+		color: var(--secondary-background-color);
 	}
 
 	@media (min-width: 768px) {
@@ -101,13 +146,12 @@
 			width: auto;
 		}
 
-		.nav__item {
+		.item {
 			padding-left: 1rem;
 			padding-right: 1rem;
-		}
-
-		.item__link {
+			
 			font-size: 1.25rem;
 		}
 	}
+
 </style>
