@@ -1,4 +1,3 @@
-
 # GameVault
 
 El proyecto consiste en una aplicación web que permite a los usuarios buscar y comprar videojuegos y DLCs.
@@ -18,7 +17,6 @@ La aplicación se divide en varias secciones:
 - Wishlist: Esta sección permite a los usuarios agregar juegos y DLCs a su lista de deseos.
 
 - Contacto: Esta sección permite a los usuarios enviar sus comentarios y preguntas a través de un formulario.
-
 
 ## Installation
 
@@ -48,7 +46,8 @@ Si deseamos construir el proyecto para producción, podemos ejecutar:
 pnpm build
 ```
 
-Esto generará un directorio `dist` con el código compilado y optimizado para producción. 
+Esto generará un directorio `dist` con el código compilado y optimizado para producción.
+
 ## API Reference
 
 #### Get all games
@@ -57,11 +56,11 @@ Esto generará un directorio `dist` con el código compilado y optimizado para p
   GET https://api.rawg.io/api/games
 ```
 
-| Parameter | Type     | Description                |
-| :-------- | :------- | :------------------------- |
-| `api_key` | `string` | **Required**. Your API key |
-| `ordering` | `string` | **Optional**. Determines result sort order |
-| `dates` | `string` | **Optional**. Filters results by date range. Format: `YYYY-MM-DD,YYYY-MM-DD`.|
+| Parameter  | Type     | Description                                                                   |
+| :--------- | :------- | :---------------------------------------------------------------------------- |
+| `api_key`  | `string` | **Required**. Your API key                                                    |
+| `ordering` | `string` | **Optional**. Determines result sort order                                    |
+| `dates`    | `string` | **Optional**. Filters results by date range. Format: `YYYY-MM-DD,YYYY-MM-DD`. |
 
 #### Get game
 
@@ -71,7 +70,7 @@ Esto generará un directorio `dist` con el código compilado y optimizado para p
 
 | Parameter | Type     | Description                         |
 | :-------- | :------- | :---------------------------------- |
-| `api_key` | `string` | **Required**. Your API key |
+| `api_key` | `string` | **Required**. Your API key          |
 | `slug`    | `string` | **Required**. Slug of game to fetch |
 
 #### Get game's screenshots
@@ -83,7 +82,7 @@ Esto generará un directorio `dist` con el código compilado y optimizado para p
 | Parameter | Type     | Description                       |
 | :-------- | :------- | :-------------------------------- |
 | `id`      | `string` | **Required**. Id of game to fetch |
-| `api_key` | `string` | **Required**. Your API key |
+| `api_key` | `string` | **Required**. Your API key        |
 
 #### Get game's additions
 
@@ -102,12 +101,11 @@ Esto generará un directorio `dist` con el código compilado y optimizado para p
   GET https://api.rawg.io/api/games
 ```
 
-|  Parameter  | Type     | Description                         |
-| :---------- | :------- | :---------------------------------- |
-|   `api_key` | `string` | **Required**. Your API key          |
-|   `search`  | `string` | **Required**. Name of game to fetch |
-| `page_size` | `string` | **Required**. Number of results to return per page. Example: `20`.|
-
+| Parameter   | Type     | Description                                                        |
+| :---------- | :------- | :----------------------------------------------------------------- |
+| `api_key`   | `string` | **Required**. Your API key                                         |
+| `search`    | `string` | **Required**. Name of game to fetch                                |
+| `page_size` | `string` | **Required**. Number of results to return per page. Example: `20`. |
 
 ## Authors
 
@@ -116,8 +114,6 @@ Esto generará un directorio `dist` con el código compilado y optimizado para p
 - [@gomosit0](https://www.github.com/gomosit0)
 - [@yoelcolque](https://www.github.com/yoelcolque)
 
-
 ## Demo
 
 [GameVault](https://grupo-10.vercel.app/)
-
